@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">晨光产品短片模板的原创几何示意封面</title>
+  <desc id="desc">抽象窗格、光束、产品轮廓和镜头框表现缓慢推进的影像构想。示意封面，非真实生成作品。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse"><stop stop-color="#151610"/><stop offset="1" stop-color="#252217"/></linearGradient>
+    <linearGradient id="light" x1="800" y1="180" x2="460" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#ead5a1" stop-opacity=".5"/><stop offset="1" stop-color="#ead5a1" stop-opacity="0"/></linearGradient>
+    <linearGradient id="bottle" x1="565" y1="376" x2="725" y2="643" gradientUnits="userSpaceOnUse"><stop stop-color="#d8c28c"/><stop offset="1" stop-color="#7a744e"/></linearGradient>
+    <clipPath id="frame"><rect x="104" y="262" width="992" height="441" rx="20"/></clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="url(#background)"/>
+  <g clip-path="url(#frame)">
+    <rect x="104" y="262" width="992" height="441" fill="#191c15"/>
+    <rect x="775" y="218" width="410" height="480" fill="#303628"/>
+    <path d="M775 218 340 703h224l416-485zM1020 218 662 703h220l303-386V218z" fill="url(#light)"/>
+    <path d="M825 218v480M1008 218v480M775 441h410" stroke="#e8d4a0" stroke-opacity=".22" stroke-width="8"/>
+    <path d="M104 609h992v94H104z" fill="#787b58" fill-opacity=".24"/>
+    <ellipse cx="643" cy="657" rx="151" ry="18" fill="#0f100d" fill-opacity=".7"/>
+    <rect x="569" y="393" width="150" height="250" rx="27" fill="url(#bottle)"/>
+    <rect x="599" y="344" width="90" height="58" rx="9" fill="#c7a65b"/>
+    <path d="M584 426v171" stroke="#f0e2b8" stroke-opacity=".42" stroke-width="4" stroke-linecap="round"/>
+    <rect x="590" y="490" width="109" height="67" fill="#282c20" fill-opacity=".67"/>
+    <path d="M620 514h49M632 531h25" stroke="#e7d4a3" stroke-opacity=".75"/>
+  </g>
+  <rect x="104" y="262" width="992" height="441" rx="20" fill="none" stroke="#d3bb7f" stroke-opacity=".5"/>
+  <path d="M127 307v-20h30M1043 287h30v20M127 658v20h30M1043 678h30v-20" fill="none" stroke="#ead7a8" stroke-width="2"/>
+  <circle cx="213" cy="483" r="54" fill="#141810" fill-opacity=".68" stroke="#e1ca91" stroke-opacity=".4"/>
+  <path d="m202 461 31 22-31 22z" fill="#e6d3a5"/>
+  <g fill="#e4d7b5" font-family="'Microsoft YaHei','Noto Sans SC',sans-serif">
+    <text x="108" y="126" font-size="20" letter-spacing="7">VIDEO TEMPLATE</text>
+    <text x="108" y="202" font-size="52" font-weight="600">慢慢靠近，留住晨光</text>
+    <text x="108" y="766" font-size="21" fill-opacity=".65">光影变化 / 缓慢推进 / 安静的产品叙事</text>
+    <text x="108" y="840" font-size="19" fill-opacity=".55">原创几何示意封面 · 非真实生成作品</text>
+  </g>
+</svg>

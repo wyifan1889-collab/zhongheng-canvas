@@ -1,0 +1,36 @@
+# Generated from Round15 normalized typecheck baseline (69 raw diagnostics, 33 keys).
+# Source: E:\codex-画布\evidence\b04-round15\ts-main-after.txt; Bun 1.4.2 tsc --noEmit --incremental false --pretty false; exit 2.
+# Format: count<TAB>file<TAB>code<TAB>message (line and column intentionally excluded).
+1	src/components/layout/model-script-editor.tsx	TS2353	Object literal may only specify known properties, and 'content' does not exist in type '((info: { props: ModalProps; }) => DeepStylesType<{ root?: CSSProperties | undefined; header?: CSSProperties | undefined; body?: CSSProperties | undefined; ... 5 more ...; close?: CSSProperties | undefined; } | undefined>) | DeepStylesType<...>'.
+2	src/services/saas/account-draft-store.test.ts	TS18046	'error' is of type 'unknown'.
+1	src/services/saas/account-draft-workspace.test.ts	TS2769	No overload matches this call.
+14	src/services/saas/account.test.ts	TS2352	Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+1	src/services/saas/canvas-cloud-library.test.ts	TS2769	No overload matches this call.
+8	src/services/saas/canvas-cloud-library.test.ts	TS2339	Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+1	src/services/saas/canvas-document-mount-controller.test.ts	TS2769	No overload matches this call.
+1	src/services/saas/canvas-document-mount.test.ts	TS2769	No overload matches this call.
+1	src/services/saas/canvas-document-mount.test.ts	TS2322	Type '{ content: string; status: string; errorDetails: undefined; }' is not assignable to type 'JsonValue'.
+1	src/services/saas/canvas-document.test.ts	TS2740	Type '{ content: string; }' is missing the following properties from type 'CanvasNodeImage': id, status, naturalWidth, naturalHeight, and 2 more.
+1	src/services/saas/canvas-document.test.ts	TS2353	Object literal may only specify known properties, and 'url' does not exist in type 'CanvasNodeMetadata'.
+1	src/services/saas/canvas-document.test.ts	TS2737	BigInt literals are not available when targeting lower than ES2020.
+1	src/services/saas/canvas-document.test.ts	TS2345	Argument of type 'string' is not assignable to parameter of type 'number'.
+2	src/services/saas/canvas-first-save.test.ts	TS18046	'error' is of type 'unknown'.
+1	src/services/saas/canvas-first-save.test.ts	TS2353	Object literal may only specify known properties, and 'videoTaskId' does not exist in type '{ content: string; errorDetails: undefined; }'.
+2	src/services/saas/canvas-receipt-review.test.ts	TS18046	'error' is of type 'unknown'.
+1	src/services/saas/canvas-receipt-review.test.ts	TS2345	Argument of type '() => Promise<{ status: "found-current"; draft: { id: string; revision: number; updatedAt: string; documentVersion: 1; createdAt: string; readonly title: void; document: { id: string; readonly media: void; }; }; }>' is not assignable to parameter of type '() => Promise<DraftCreationCheck>'.
+2	src/services/saas/canvas-receipt-review.test.ts	TS2345	Argument of type 'Promise<CanvasReceiptReviewRow[]> | Promise<CanvasReceiptReviewRow>' is not assignable to parameter of type 'Promise<CanvasReceiptReviewRow[]>'.
+4	src/services/saas/canvas-version-save.test.ts	TS2769	No overload matches this call.
+1	src/services/saas/canvas-version-save.test.ts	TS2353	Object literal may only specify known properties, and 'videoTaskId' does not exist in type '{ content: string; errorDetails: undefined; }'.
+1	src/services/saas/creation-receipt-store.test.ts	TS18046	'error' is of type 'unknown'.
+1	src/services/saas/creation-receipt-store.test.ts	TS2352	Conversion of type 'string | number[] | null' to type 'string[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+1	src/services/saas/creation-receipts.browser-check.ts	TS2352	Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+5	src/services/saas/creation-receipts.test.ts	TS2352	Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+2	src/services/saas/draft-creation.test.ts	TS2352	Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+2	src/services/saas/draft-creation.test.ts	TS2352	Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+1	src/services/saas/draft-creation.test.ts	TS2352	Conversion of type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+1	src/services/saas/draft-recovery.test.ts	TS2352	Conversion of type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+2	src/services/saas/draft-recovery.test.ts	TS2352	Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+3	src/services/saas/draft-recovery.test.ts	TS2352	Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+1	src/services/saas/drafts.test.ts	TS2737	BigInt literals are not available when targeting lower than ES2020.
+1	src/services/saas/drafts.test.ts	TS2345	Argument of type 'string' is not assignable to parameter of type 'number'.
+1	src/stores/canvas/use-canvas-store.ts	TS2352	Conversion of type '{ getItem(): Promise<{ state: CanvasSnapshot; version: number; }>; setItem(_name: string, value: { state: CanvasSnapshot; }): void; removeItem(): void; }' to type 'PersistStorage<CanvasStore, unknown>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.

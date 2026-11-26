@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN" class="font-sans">
+    <head>
+        <meta charset="UTF-8" />
+        <script>
+            var privacyPath = location.pathname;
+            try { privacyPath = decodeURI(privacyPath); } catch (e) {}
+            if (/^\/(?:login|reset-password)\/?$/i.test(privacyPath) || /^\/canvas\/join(?:\/|$)/i.test(privacyPath)) {
+                var referrerPolicy = document.createElement("meta");
+                referrerPolicy.name = "referrer";
+                referrerPolicy.content = "no-referrer";
+                document.head.appendChild(referrerPolicy);
+            }
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="忠恒AI — AI 全模态创作平台" />
+        <link rel="icon" href="/logo.svg" />
+        <title>忠恒AI</title>
+        <script>
+            try {
+                var s = JSON.parse(localStorage.getItem("infinite-canvas:theme_store") || "{}");
+                var t = s.state && s.state.theme === "light" ? "light" : "dark";
+                document.documentElement.classList.toggle("dark", t === "dark");
+                document.documentElement.style.colorScheme = t;
+            } catch (e) {}
+        </script>
+    </head>
+    <body class="bg-background text-foreground antialiased">
+        <div id="root"></div>
+        <script src="/config.js"></script>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
+</html>

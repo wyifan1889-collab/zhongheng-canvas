@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>保存回执 · 开发检查</title>
+    </head>
+    <body>
+        <main id="receipt-check">此检查仅供本地开发验证，不是画布产品入口。</main>
+        <script type="module">
+            if (import.meta.env.DEV && ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname)) {
+                void import("/src/services/saas/creation-receipts.browser-check.ts");
+            }
+        </script>
+    </body>
+</html>

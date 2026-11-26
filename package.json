@@ -1,0 +1,18 @@
+{
+  "name": "infinite-canvas-saas",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.2",
+  "workspaces": ["apps/api", "packages/*"],
+  "overrides": { "esbuild": "0.28.2" },
+  "scripts": {
+    "dev:api": "bun run --cwd apps/api dev",
+    "test:saas": "bun --no-env-file test ./apps/api/test",
+    "test:postgres": "bun --no-env-file run packages/test-postgres/src/run.ts",
+    "db:generate": "bun run --cwd packages/database generate",
+    "db:migrate": "bun run --cwd apps/api db:migrate"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.2"
+  }
+}

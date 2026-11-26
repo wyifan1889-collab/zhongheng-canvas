@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">暖金香氛海报模板的原创几何示意封面</title>
+  <desc id="desc">以圆弧、展台和几何瓶形表现暖金色商业海报构图。示意封面，非真实生成作品。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse"><stop stop-color="#292319"/><stop offset="1" stop-color="#100f0b"/></linearGradient>
+    <linearGradient id="gold" x1="380" y1="280" x2="790" y2="740" gradientUnits="userSpaceOnUse"><stop stop-color="#e7d5a2"/><stop offset=".5" stop-color="#b5912a"/><stop offset="1" stop-color="#76602c"/></linearGradient>
+    <linearGradient id="glass" x1="510" y1="330" x2="730" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#f4e7c4" stop-opacity=".8"/><stop offset="1" stop-color="#c9ad68" stop-opacity=".16"/></linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#background)"/>
+  <path d="M75 0v900M1125 0v900M0 108h1200M0 792h1200" stroke="#bca06a" stroke-opacity=".13"/>
+  <circle cx="780" cy="302" r="280" fill="none" stroke="#e4cc8c" stroke-opacity=".22"/>
+  <circle cx="780" cy="302" r="230" fill="none" stroke="#e4cc8c" stroke-opacity=".10"/>
+  <path d="M416 708V402a230 230 0 0 1 460 0v306" fill="#b5912a" fill-opacity=".06" stroke="#d8bc79" stroke-opacity=".24"/>
+  <ellipse cx="650" cy="707" rx="246" ry="54" fill="#080806" fill-opacity=".5"/>
+  <path d="M430 660h440v70c0 51-440 51-440 0z" fill="url(#gold)"/>
+  <ellipse cx="650" cy="660" rx="220" ry="47" fill="#e4d3a7"/>
+  <rect x="555" y="347" width="190" height="297" rx="36" fill="url(#glass)" stroke="#f5e6bf" stroke-opacity=".56" stroke-width="2"/>
+  <path d="M571 390v198" stroke="#fff0c9" stroke-opacity=".38" stroke-width="5" stroke-linecap="round"/>
+  <rect x="592" y="292" width="116" height="66" rx="13" fill="url(#gold)"/>
+  <path d="M607 309h85M607 320h85M607 331h85" stroke="#fff0c9" stroke-opacity=".25"/>
+  <rect x="579" y="464" width="142" height="93" rx="2" fill="#1b1912" fill-opacity=".72"/>
+  <path d="M618 496h64M632 516h36" stroke="#e5cc8d" stroke-width="2"/>
+  <g fill="#e3d4ac" font-family="'Microsoft YaHei','Noto Sans SC',sans-serif">
+    <text x="112" y="186" font-size="20" letter-spacing="7">IMAGE TEMPLATE</text>
+    <text x="112" y="268" font-size="52" font-weight="600">留白，让香气被看见</text>
+    <text x="112" y="309" font-size="21" fill-opacity=".6">柔和侧光 / 玻璃质感 / 暖金构图</text>
+    <text x="112" y="840" font-size="19" fill-opacity=".55">原创几何示意封面 · 非真实生成作品</text>
+  </g>
+  <path d="M1010 630v58M981 659h58" stroke="#ddc58b" stroke-opacity=".6" stroke-width="2"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">温暖欢迎语模板的原创几何示意封面</title>
+  <desc id="desc">同心圆和抽象金色声波表现温暖的语音氛围。声波为装饰图形，不对应真实录音。示意封面，非真实生成作品。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse"><stop stop-color="#231d1b"/><stop offset="1" stop-color="#12100d"/></linearGradient>
+    <linearGradient id="wave" x1="221" y1="350" x2="1000" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#8b7146"/><stop offset=".5" stop-color="#ecd6a5"/><stop offset="1" stop-color="#bd9752"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#b5912a" stop-opacity=".12"/><stop offset="1" stop-color="#b5912a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#background)"/>
+  <circle cx="620" cy="495" r="360" fill="url(#glow)"/>
+  <g fill="none" stroke="#d1b779">
+    <circle cx="620" cy="495" r="124" stroke-opacity=".18"/>
+    <circle cx="620" cy="495" r="204" stroke-opacity=".13"/>
+    <circle cx="620" cy="495" r="284" stroke-opacity=".08"/>
+  </g>
+  <path d="M113 495h974" stroke="#ddc99b" stroke-opacity=".12"/>
+  <g stroke="url(#wave)" stroke-width="15" stroke-linecap="round">
+    <path d="M228 478v34M266 452v86M304 434v122M342 463v64M380 417v156M418 390v210M456 426v138M494 355v280M532 384v222M570 331v328M608 363v264M646 319v352M684 371v248M722 395v200M760 357v276M798 411v168M836 435v120M874 454v82M912 431v128M950 468v54M988 481v28"/>
+  </g>
+  <path d="M111 700h978" stroke="#c8ad72" stroke-opacity=".2"/>
+  <circle cx="116" cy="700" r="4" fill="#dfc993"/>
+  <g fill="#e8d7b7" font-family="'Microsoft YaHei','Noto Sans SC',sans-serif">
+    <text x="112" y="126" font-size="20" letter-spacing="7">AUDIO TEMPLATE</text>
+    <text x="112" y="202" font-size="52" font-weight="600">让一句欢迎，有温度</text>
+    <text x="112" y="254" font-size="21" fill-opacity=".6">从一段文字，开始一次创作</text>
+    <text x="112" y="766" font-size="21" fill-opacity=".65">文字转语音 / 友好开场 / 欢迎语</text>
+    <text x="112" y="840" font-size="19" fill-opacity=".55">原创几何示意封面 · 非真实生成作品</text>
+  </g>
+</svg>

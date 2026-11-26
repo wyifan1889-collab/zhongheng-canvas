@@ -1,0 +1,69 @@
+x-api-image: &api-image ${CANVAS_API_IMAGE:?Set the API image reference from a reviewed release}
+x-database-url: &database-url postgresql://canvas:${CANVAS_DB_PASSWORD:?Set a hex database password}@db:5432/canvas
+
+services:
+  db:
+    image: ${CANVAS_DB_IMAGE:?Set the PostgreSQL image reference from a reviewed release}
+    environment:
+      POSTGRES_DB: canvas
+      POSTGRES_USER: canvas
+      POSTGRES_PASSWORD: ${CANVAS_DB_PASSWORD:?Set a hex database password}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -h 127.0.0.1 -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  migrate:
+    profiles: [migration]
+    image: *api-image
+    environment:
+      SAAS_DATABASE_URL: *database-url
+    entrypoint: [bun, run, --cwd, apps/api, db:migrate]
+    restart: "no"
+
+  api:
+    image: *api-image
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      HOST: 0.0.0.0
+      PORT: "4011"
+      SAAS_DATABASE_URL: *database-url
+      SAAS_ORIGIN: http://127.0.0.1:${CANVAS_PORT:-3000}
+      SAAS_ACCOUNTS_ENABLED: ${CANVAS_ACCOUNTS_ENABLED:-false}
+      SAAS_AUTH_SECRET: ${CANVAS_AUTH_SECRET:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_SECURE: ${SMTP_SECURE:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+      CAPTCHA_TIMEOUT_MS: ${CAPTCHA_TIMEOUT_MS:-}
+      SMTP_CONNECTION_TIMEOUT_MS: ${SMTP_CONNECTION_TIMEOUT_MS:-}
+      SMTP_SOCKET_TIMEOUT_MS: ${SMTP_SOCKET_TIMEOUT_MS:-}
+      SAAS_TRUSTED_PROXY: "false"
+      SAAS_CLOUD_CANVAS_ENABLED: "false"
+      SAAS_MEDIA_ENABLED: "false"
+      SAAS_PAYMENTS_ENABLED: "false"
+      SAAS_GENERATION_TEXT_ENABLED: "false"
+      SAAS_GENERATION_IMAGE_ENABLED: "false"
+      SAAS_GENERATION_VIDEO_ENABLED: "false"
+      SAAS_GENERATION_AUDIO_ENABLED: "false"
+
+  web:
+    image: ${CANVAS_WEB_IMAGE:?Set the Web image reference from a reviewed release}
+    ports:
+      - "127.0.0.1:${CANVAS_PORT:-3000}:3000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+
+volumes:
+  postgres:

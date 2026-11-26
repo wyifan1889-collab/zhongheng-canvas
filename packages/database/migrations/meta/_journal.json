@@ -1,0 +1,307 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790496748442,
+      "tag": "0000_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790503034902,
+      "tag": "0001_account_http",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791244800000,
+      "tag": "0002_media_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791702360000,
+      "tag": "0003_canvas_draft_owner_created",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791702420000,
+      "tag": "0004_canvas_draft_document_gin",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791708000000,
+      "tag": "0005_model_catalog",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791708296539,
+      "tag": "0006_wallet",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791709800000,
+      "tag": "0007_model_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791710400000,
+      "tag": "0008_provider_credentials",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791763200000,
+      "tag": "0009_generation_tasks",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791766800000,
+      "tag": "0010_generation_results",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791770400000,
+      "tag": "0011_generation_task_reservation",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791774000000,
+      "tag": "0012_generation_result_usage",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1791777600000,
+      "tag": "0013_generation_task_pricing_snapshot",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1792345137209,
+      "tag": "0014_user_email_case_insensitive",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1792713600000,
+      "tag": "0015_cny_price_drafts",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1792742400000,
+      "tag": "0016_model_price_drafts",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1792742400001,
+      "tag": "0017_model_price_publications",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1792742400002,
+      "tag": "0018_generation_task_price_publication",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1792742400003,
+      "tag": "0019_decimal_credit_wallet",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1792742400004,
+      "tag": "0020_text_price_publications",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1792742400005,
+      "tag": "0021_official_price_references",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1792742400006,
+      "tag": "0022_provider_discovery",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1792742400007,
+      "tag": "0023_node_model_groups",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1792742400008,
+      "tag": "0024_text_generation_budget",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1792742400009,
+      "tag": "0025_text_cached_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1792742400010,
+      "tag": "0026_image_spec_task_contract",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1792742400011,
+      "tag": "0027_audio_request_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1793007793363,
+      "tag": "0028_canvas_sharing",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1793186362226,
+      "tag": "0029_launch_safety_video_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1793187391424,
+      "tag": "0030_video_source_binding",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1793187676937,
+      "tag": "0031_payment_orders",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1793290864959,
+      "tag": "0032_generation_rate_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1794355200000,
+      "tag": "0033_catalog_deletion",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1794498078701,
+      "tag": "0034_model_mapping_draft",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1794656754452,
+      "tag": "0035_model_mapping_publication",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1794916800000,
+      "tag": "0036_image_batch_tasks",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1794920400000,
+      "tag": "0037_image_request_stages",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1794956400000,
+      "tag": "0038_image_protocol_contract",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1794978000000,
+      "tag": "0039_image_response_format",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1795003200000,
+      "tag": "0040_audio_model_groups",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1795046400000,
+      "tag": "0041_gemini_delivered_images",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1795583442824,
+      "tag": "0042_generation_history_title",
+      "breakpoints": true
+    }
+  ]
+}

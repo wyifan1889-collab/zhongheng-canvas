@@ -1,0 +1,5589 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "canvas_saas.abuse_report": {
+      "name": "abuse_report",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reporter_id": {
+          "name": "reporter_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'submitted'"
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "received_by": {
+          "name": "received_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "received_at": {
+          "name": "received_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "abuse_report_reporter_created": {
+          "name": "abuse_report_reporter_created",
+          "columns": [
+            {
+              "expression": "reporter_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "abuse_report_status_created": {
+          "name": "abuse_report_status_created",
+          "columns": [
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "abuse_report_reporter_id_user_id_fk": {
+          "name": "abuse_report_reporter_id_user_id_fk",
+          "tableFrom": "abuse_report",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "reporter_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "abuse_report_revision": {
+          "name": "abuse_report_revision",
+          "value": "\"canvas_saas\".\"abuse_report\".\"revision\" > 0"
+        },
+        "abuse_report_receipt": {
+          "name": "abuse_report_receipt",
+          "value": "(\"canvas_saas\".\"abuse_report\".\"status\" = 'submitted' AND \"canvas_saas\".\"abuse_report\".\"received_by\" IS NULL AND \"canvas_saas\".\"abuse_report\".\"received_at\" IS NULL) OR (\"canvas_saas\".\"abuse_report\".\"status\" = 'received' AND \"canvas_saas\".\"abuse_report\".\"received_by\" IS NOT NULL AND \"canvas_saas\".\"abuse_report\".\"received_at\" IS NOT NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.account": {
+      "name": "account",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "account_id": {
+          "name": "account_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token_expires_at": {
+          "name": "access_token_expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refresh_token_expires_at": {
+          "name": "refresh_token_expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "account_user": {
+          "name": "account_user",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "account_provider_identity": {
+          "name": "account_provider_identity",
+          "columns": [
+            {
+              "expression": "provider_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "account_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "account_user_id_user_id_fk": {
+          "name": "account_user_id_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "canvas_saas.account_moderation_operation": {
+      "name": "account_moderation_operation",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "target_user_id": {
+          "name": "target_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "disabled": {
+          "name": "disabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expected_version": {
+          "name": "expected_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_moderation_operation_target_user_id_user_id_fk": {
+          "name": "account_moderation_operation_target_user_id_user_id_fk",
+          "tableFrom": "account_moderation_operation",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "target_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "account_moderation_operation_actor_id_user_id_fk": {
+          "name": "account_moderation_operation_actor_id_user_id_fk",
+          "tableFrom": "account_moderation_operation",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "account_moderation_operation_versions": {
+          "name": "account_moderation_operation_versions",
+          "value": "\"canvas_saas\".\"account_moderation_operation\".\"expected_version\" >= 0 AND \"canvas_saas\".\"account_moderation_operation\".\"revision\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.audit_event": {
+      "name": "audit_event",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resource_id": {
+          "name": "resource_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "audit_actor_created": {
+          "name": "audit_actor_created",
+          "columns": [
+            {
+              "expression": "actor_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "canvas_saas.canvas_draft": {
+      "name": "canvas_draft",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "document_version": {
+          "name": "document_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "document": {
+          "name": "document",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "canvas_draft_owner": {
+          "name": "canvas_draft_owner",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "canvas_draft_owner_created": {
+          "name": "canvas_draft_owner_created",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "canvas_draft_document_gin": {
+          "name": "canvas_draft_document_gin",
+          "columns": [
+            {
+              "expression": "document",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "canvas_draft_owner_id_user_id_fk": {
+          "name": "canvas_draft_owner_id_user_id_fk",
+          "tableFrom": "canvas_draft",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "canvas_draft_revision": {
+          "name": "canvas_draft_revision",
+          "value": "\"canvas_saas\".\"canvas_draft\".\"revision\" > 0"
+        },
+        "canvas_draft_version": {
+          "name": "canvas_draft_version",
+          "value": "\"canvas_saas\".\"canvas_draft\".\"document_version\" = 1"
+        },
+        "canvas_draft_object": {
+          "name": "canvas_draft_object",
+          "value": "jsonb_typeof(\"canvas_saas\".\"canvas_draft\".\"document\") = 'object'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.canvas_members": {
+      "name": "canvas_members",
+      "schema": "canvas_saas",
+      "columns": {
+        "canvas_id": {
+          "name": "canvas_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "invited_by": {
+          "name": "invited_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "joined_at": {
+          "name": "joined_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "canvas_members_user": {
+          "name": "canvas_members_user",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "canvas_members_one_owner": {
+          "name": "canvas_members_one_owner",
+          "columns": [
+            {
+              "expression": "canvas_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"canvas_saas\".\"canvas_members\".\"role\" = 'owner'",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "canvas_members_canvas_id_canvas_draft_id_fk": {
+          "name": "canvas_members_canvas_id_canvas_draft_id_fk",
+          "tableFrom": "canvas_members",
+          "tableTo": "canvas_draft",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "canvas_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "canvas_members_user_id_user_id_fk": {
+          "name": "canvas_members_user_id_user_id_fk",
+          "tableFrom": "canvas_members",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "canvas_members_invited_by_user_id_fk": {
+          "name": "canvas_members_invited_by_user_id_fk",
+          "tableFrom": "canvas_members",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "invited_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "canvas_members_pk": {
+          "name": "canvas_members_pk",
+          "columns": [
+            "canvas_id",
+            "user_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "canvas_members_role": {
+          "name": "canvas_members_role",
+          "value": "\"canvas_saas\".\"canvas_members\".\"role\" IN ('viewer', 'editor', 'owner')"
+        },
+        "canvas_members_owner_active": {
+          "name": "canvas_members_owner_active",
+          "value": "\"canvas_saas\".\"canvas_members\".\"role\" <> 'owner' OR \"canvas_saas\".\"canvas_members\".\"joined_at\" IS NOT NULL"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.canvas_shares": {
+      "name": "canvas_shares",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "canvas_id": {
+          "name": "canvas_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "canvas_shares_canvas_unique": {
+          "name": "canvas_shares_canvas_unique",
+          "columns": [
+            {
+              "expression": "canvas_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "canvas_shares_token_unique": {
+          "name": "canvas_shares_token_unique",
+          "columns": [
+            {
+              "expression": "token",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "canvas_shares_canvas_id_canvas_draft_id_fk": {
+          "name": "canvas_shares_canvas_id_canvas_draft_id_fk",
+          "tableFrom": "canvas_shares",
+          "tableTo": "canvas_draft",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "canvas_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "canvas_shares_created_by_user_id_fk": {
+          "name": "canvas_shares_created_by_user_id_fk",
+          "tableFrom": "canvas_shares",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "canvas_shares_role": {
+          "name": "canvas_shares_role",
+          "value": "\"canvas_saas\".\"canvas_shares\".\"role\" IN ('viewer', 'editor')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.cny_price_draft": {
+      "name": "cny_price_draft",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'CNY'"
+        },
+        "billing_unit": {
+          "name": "billing_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'request'"
+        },
+        "cost_amount": {
+          "name": "cost_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sale_amount": {
+          "name": "sale_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_note": {
+          "name": "price_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id_snapshot": {
+          "name": "provider_id_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model_snapshot": {
+          "name": "provider_model_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adapter_snapshot": {
+          "name": "adapter_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endpoint_snapshot": {
+          "name": "endpoint_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capability_snapshot": {
+          "name": "capability_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'image'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "cny_price_draft_model_version_unique": {
+          "name": "cny_price_draft_model_version_unique",
+          "columns": [
+            {
+              "expression": "model_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "cny_price_draft_model_id_model_catalog_id_fk": {
+          "name": "cny_price_draft_model_id_model_catalog_id_fk",
+          "tableFrom": "cny_price_draft",
+          "tableTo": "model_catalog",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "model_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "cny_price_draft_version": {
+          "name": "cny_price_draft_version",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"version\" > 0"
+        },
+        "cny_price_draft_currency": {
+          "name": "cny_price_draft_currency",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"currency\" = 'CNY'"
+        },
+        "cny_price_draft_billing_unit": {
+          "name": "cny_price_draft_billing_unit",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"billing_unit\" = 'request'"
+        },
+        "cny_price_draft_cost_amount": {
+          "name": "cny_price_draft_cost_amount",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"cost_amount\" IS NULL OR (\"canvas_saas\".\"cny_price_draft\".\"cost_amount\" >= 0 AND \"canvas_saas\".\"cny_price_draft\".\"cost_amount\"::text NOT IN ('NaN', 'Infinity', '-Infinity'))"
+        },
+        "cny_price_draft_sale_amount": {
+          "name": "cny_price_draft_sale_amount",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"sale_amount\" >= 0 AND \"canvas_saas\".\"cny_price_draft\".\"sale_amount\"::text NOT IN ('NaN', 'Infinity', '-Infinity')"
+        },
+        "cny_price_draft_adapter": {
+          "name": "cny_price_draft_adapter",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"adapter_snapshot\" IN ('openai-compatible', 'sub2api')"
+        },
+        "cny_price_draft_capability": {
+          "name": "cny_price_draft_capability",
+          "value": "\"canvas_saas\".\"cny_price_draft\".\"capability_snapshot\" = 'image'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.content_safety_event": {
+      "name": "content_safety_event",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capability": {
+          "name": "capability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "content_safety_event_capability": {
+          "name": "content_safety_event_capability",
+          "value": "\"canvas_saas\".\"content_safety_event\".\"capability\" IN ('text', 'image', 'video', 'audio')"
+        },
+        "content_safety_event_phase": {
+          "name": "content_safety_event_phase",
+          "value": "\"canvas_saas\".\"content_safety_event\".\"phase\" = 'pre_generation'"
+        },
+        "content_safety_event_mode": {
+          "name": "content_safety_event_mode",
+          "value": "\"canvas_saas\".\"content_safety_event\".\"mode\" = 'record'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_image_request": {
+      "name": "generation_image_request",
+      "schema": "canvas_saas",
+      "columns": {
+        "task_id": {
+          "name": "task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_index": {
+          "name": "request_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_count": {
+          "name": "image_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publication_id": {
+          "name": "publication_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "binding_snapshot": {
+          "name": "binding_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parameters_snapshot": {
+          "name": "parameters_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ready'"
+        },
+        "attempt_token": {
+          "name": "attempt_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "result_snapshot": {
+          "name": "result_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "last_reason": {
+          "name": "last_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "generation_image_request_task_id_generation_task_id_fk": {
+          "name": "generation_image_request_task_id_generation_task_id_fk",
+          "tableFrom": "generation_image_request",
+          "tableTo": "generation_task",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "task_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "generation_image_request_owner_id_user_id_fk": {
+          "name": "generation_image_request_owner_id_user_id_fk",
+          "tableFrom": "generation_image_request",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "generation_image_request_publication_id_model_price_publication_id_fk": {
+          "name": "generation_image_request_publication_id_model_price_publication_id_fk",
+          "tableFrom": "generation_image_request",
+          "tableTo": "model_price_publication",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "publication_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "generation_image_request_task_id_request_index_pk": {
+          "name": "generation_image_request_task_id_request_index_pk",
+          "columns": [
+            "task_id",
+            "request_index"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "generation_image_request_count": {
+          "name": "generation_image_request_count",
+          "value": "\"canvas_saas\".\"generation_image_request\".\"request_index\" BETWEEN 0 AND 9 AND \"canvas_saas\".\"generation_image_request\".\"image_count\" BETWEEN 1 AND 10"
+        },
+        "generation_image_request_phase": {
+          "name": "generation_image_request_phase",
+          "value": "\"canvas_saas\".\"generation_image_request\".\"phase\" IN ('ready', 'started', 'succeeded', 'failed', 'unknown')"
+        },
+        "generation_image_request_attempt": {
+          "name": "generation_image_request_attempt",
+          "value": "(\"canvas_saas\".\"generation_image_request\".\"phase\" = 'ready' AND \"canvas_saas\".\"generation_image_request\".\"attempt_token\" IS NULL AND \"canvas_saas\".\"generation_image_request\".\"started_at\" IS NULL) OR (\"canvas_saas\".\"generation_image_request\".\"phase\" <> 'ready' AND \"canvas_saas\".\"generation_image_request\".\"attempt_token\" IS NOT NULL AND \"canvas_saas\".\"generation_image_request\".\"started_at\" IS NOT NULL)"
+        },
+        "generation_image_request_snapshots": {
+          "name": "generation_image_request_snapshots",
+          "value": "jsonb_typeof(\"canvas_saas\".\"generation_image_request\".\"binding_snapshot\") = 'object' AND jsonb_typeof(\"canvas_saas\".\"generation_image_request\".\"parameters_snapshot\") = 'object' AND jsonb_typeof(\"canvas_saas\".\"generation_image_request\".\"result_snapshot\") = 'object'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_rate_settings": {
+      "name": "generation_rate_settings",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "active_version_id": {
+          "name": "active_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "generation_rate_settings_active_version_id_generation_rate_version_id_fk": {
+          "name": "generation_rate_settings_active_version_id_generation_rate_version_id_fk",
+          "tableFrom": "generation_rate_settings",
+          "tableTo": "generation_rate_version",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "active_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "generation_rate_settings_id": {
+          "name": "generation_rate_settings_id",
+          "value": "\"canvas_saas\".\"generation_rate_settings\".\"id\" = 'generation'"
+        },
+        "generation_rate_settings_revision": {
+          "name": "generation_rate_settings_revision",
+          "value": "(\"canvas_saas\".\"generation_rate_settings\".\"revision\" = 0 AND \"canvas_saas\".\"generation_rate_settings\".\"active_version_id\" IS NULL) OR (\"canvas_saas\".\"generation_rate_settings\".\"revision\" > 0 AND \"canvas_saas\".\"generation_rate_settings\".\"active_version_id\" IS NOT NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_rate_version": {
+      "name": "generation_rate_version",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expected_revision": {
+          "name": "expected_revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "policy": {
+          "name": "policy",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "generation_rate_version_revision": {
+          "name": "generation_rate_version_revision",
+          "columns": [
+            {
+              "expression": "revision",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "generation_rate_version_actor_id_user_id_fk": {
+          "name": "generation_rate_version_actor_id_user_id_fk",
+          "tableFrom": "generation_rate_version",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "generation_rate_version_revision": {
+          "name": "generation_rate_version_revision",
+          "value": "\"canvas_saas\".\"generation_rate_version\".\"revision\" > 0 AND \"canvas_saas\".\"generation_rate_version\".\"expected_revision\" >= 0 AND \"canvas_saas\".\"generation_rate_version\".\"revision\"::bigint = \"canvas_saas\".\"generation_rate_version\".\"expected_revision\"::bigint + 1"
+        },
+        "generation_rate_version_policy": {
+          "name": "generation_rate_version_policy",
+          "value": "(jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\") = 'object' AND \"canvas_saas\".\"generation_rate_version\".\"policy\" - 'ip' - 'user' = '{}'::jsonb AND\n        (\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip') = 'object' AND\n                \"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip' ?& ARRAY['enabled','points','duration'] AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip') - 'enabled' - 'points' - 'duration' = '{}'::jsonb AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->'enabled') = 'boolean' AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->'points') = 'number' AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'points')::numeric BETWEEN 1 AND 2147483647 AND\n                trunc((\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'points')::numeric) = (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'points')::numeric AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->'duration') = 'number' AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'duration')::numeric BETWEEN 1 AND 9007199254740 AND\n                trunc((\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'duration')::numeric) = (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'ip'->>'duration')::numeric\n            ) AND (\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user') = 'object' AND\n                \"canvas_saas\".\"generation_rate_version\".\"policy\"->'user' ?& ARRAY['enabled','points','duration'] AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user') - 'enabled' - 'points' - 'duration' = '{}'::jsonb AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->'enabled') = 'boolean' AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->'points') = 'number' AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'points')::numeric BETWEEN 1 AND 2147483647 AND\n                trunc((\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'points')::numeric) = (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'points')::numeric AND\n                jsonb_typeof(\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->'duration') = 'number' AND\n                (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'duration')::numeric BETWEEN 1 AND 9007199254740 AND\n                trunc((\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'duration')::numeric) = (\"canvas_saas\".\"generation_rate_version\".\"policy\"->'user'->>'duration')::numeric\n            )) IS TRUE"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_result": {
+      "name": "generation_result",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "task_id": {
+          "name": "task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_status": {
+          "name": "provider_status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_task_id": {
+          "name": "provider_task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "consumed_units": {
+          "name": "consumed_units",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "result_snapshot": {
+          "name": "result_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "error_code": {
+          "name": "error_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "unknown_reason": {
+          "name": "unknown_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "generation_result_owner_created": {
+          "name": "generation_result_owner_created",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "generation_result_task_id_generation_task_id_fk": {
+          "name": "generation_result_task_id_generation_task_id_fk",
+          "tableFrom": "generation_result",
+          "tableTo": "generation_task",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "task_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "generation_result_owner_id_user_id_fk": {
+          "name": "generation_result_owner_id_user_id_fk",
+          "tableFrom": "generation_result",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "generation_result_task_id_unique": {
+          "name": "generation_result_task_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "task_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "generation_result_status": {
+          "name": "generation_result_status",
+          "value": "\"canvas_saas\".\"generation_result\".\"status\" IN ('succeeded', 'failed', 'unknown')"
+        },
+        "generation_result_provider_status": {
+          "name": "generation_result_provider_status",
+          "value": "\"canvas_saas\".\"generation_result\".\"provider_status\" IS NULL OR (\"canvas_saas\".\"generation_result\".\"provider_status\" >= 100 AND \"canvas_saas\".\"generation_result\".\"provider_status\" <= 599)"
+        },
+        "generation_result_consumed_units": {
+          "name": "generation_result_consumed_units",
+          "value": "\"canvas_saas\".\"generation_result\".\"consumed_units\" IS NULL OR \"canvas_saas\".\"generation_result\".\"consumed_units\" >= 0"
+        },
+        "generation_result_snapshot_object": {
+          "name": "generation_result_snapshot_object",
+          "value": "jsonb_typeof(\"canvas_saas\".\"generation_result\".\"result_snapshot\") = 'object'"
+        },
+        "generation_result_failed_code": {
+          "name": "generation_result_failed_code",
+          "value": "\"canvas_saas\".\"generation_result\".\"status\" <> 'failed' OR (\"canvas_saas\".\"generation_result\".\"error_code\" IS NOT NULL AND length(trim(\"canvas_saas\".\"generation_result\".\"error_code\")) > 0)"
+        },
+        "generation_result_unknown_reason": {
+          "name": "generation_result_unknown_reason",
+          "value": "\"canvas_saas\".\"generation_result\".\"status\" <> 'unknown' OR (\"canvas_saas\".\"generation_result\".\"unknown_reason\" IS NOT NULL AND length(trim(\"canvas_saas\".\"generation_result\".\"unknown_reason\")) > 0)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_task": {
+      "name": "generation_task",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "space_id": {
+          "name": "space_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "project_id": {
+          "name": "project_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "node_id": {
+          "name": "node_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "input_snapshot": {
+          "name": "input_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parameter_snapshot": {
+          "name": "parameter_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_version": {
+          "name": "price_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "quoted_units": {
+          "name": "quoted_units",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "billing_unit_snapshot": {
+          "name": "billing_unit_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credits_per_unit_snapshot": {
+          "name": "credits_per_unit_snapshot",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "text_quote_snapshot": {
+          "name": "text_quote_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "video_quote_snapshot": {
+          "name": "video_quote_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_publication_id": {
+          "name": "price_publication_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idempotency_key": {
+          "name": "idempotency_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reservation_id": {
+          "name": "reservation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_task_id": {
+          "name": "provider_task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "execution_status": {
+          "name": "execution_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "delivery_status": {
+          "name": "delivery_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "billing_status": {
+          "name": "billing_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unbilled'"
+        },
+        "unknown_reason": {
+          "name": "unknown_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "generation_task_owner_idempotency": {
+          "name": "generation_task_owner_idempotency",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "idempotency_key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_task_owner_created": {
+          "name": "generation_task_owner_created",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_task_owner_execution": {
+          "name": "generation_task_owner_execution",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "execution_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_task_reservation": {
+          "name": "generation_task_reservation",
+          "columns": [
+            {
+              "expression": "reservation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_task_provider_task": {
+          "name": "generation_task_provider_task",
+          "columns": [
+            {
+              "expression": "provider_task_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_task_model": {
+          "name": "generation_task_model",
+          "columns": [
+            {
+              "expression": "model_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "generation_task_owner_id_user_id_fk": {
+          "name": "generation_task_owner_id_user_id_fk",
+          "tableFrom": "generation_task",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "generation_task_price_publication_id_model_price_publication_id_fk": {
+          "name": "generation_task_price_publication_id_model_price_publication_id_fk",
+          "tableFrom": "generation_task",
+          "tableTo": "model_price_publication",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "price_publication_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "generation_task_reservation_id_wallet_reservation_id_fk": {
+          "name": "generation_task_reservation_id_wallet_reservation_id_fk",
+          "tableFrom": "generation_task",
+          "tableTo": "wallet_reservation",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "reservation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "generation_task_input_object": {
+          "name": "generation_task_input_object",
+          "value": "jsonb_typeof(\"canvas_saas\".\"generation_task\".\"input_snapshot\") = 'object'"
+        },
+        "generation_task_parameters_object": {
+          "name": "generation_task_parameters_object",
+          "value": "jsonb_typeof(\"canvas_saas\".\"generation_task\".\"parameter_snapshot\") = 'object'"
+        },
+        "generation_task_model_id": {
+          "name": "generation_task_model_id",
+          "value": "length(trim(\"canvas_saas\".\"generation_task\".\"model_id\")) > 0"
+        },
+        "generation_task_idempotency_key": {
+          "name": "generation_task_idempotency_key",
+          "value": "length(trim(\"canvas_saas\".\"generation_task\".\"idempotency_key\")) > 0"
+        },
+        "generation_task_request_id": {
+          "name": "generation_task_request_id",
+          "value": "length(trim(\"canvas_saas\".\"generation_task\".\"request_id\")) > 0"
+        },
+        "generation_task_price_version": {
+          "name": "generation_task_price_version",
+          "value": "\"canvas_saas\".\"generation_task\".\"price_version\" IS NULL OR \"canvas_saas\".\"generation_task\".\"price_version\" > 0"
+        },
+        "generation_task_quoted_units": {
+          "name": "generation_task_quoted_units",
+          "value": "\"canvas_saas\".\"generation_task\".\"quoted_units\" IS NULL OR \"canvas_saas\".\"generation_task\".\"quoted_units\" >= 0"
+        },
+        "generation_task_billing_unit_snapshot": {
+          "name": "generation_task_billing_unit_snapshot",
+          "value": "\"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" IS NULL OR \"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" IN ('request', 'input_token', 'output_token', 'second', 'megapixel', 'image')"
+        },
+        "generation_task_credits_per_unit_snapshot": {
+          "name": "generation_task_credits_per_unit_snapshot",
+          "value": "\"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" IS NULL OR \"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" > 0"
+        },
+        "generation_task_pricing_snapshot_pair": {
+          "name": "generation_task_pricing_snapshot_pair",
+          "value": "(\"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" IS NULL AND \"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" IS NULL) OR (\"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" IS NOT NULL AND \"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" IS NOT NULL)"
+        },
+        "generation_task_text_quote": {
+          "name": "generation_task_text_quote",
+          "value": "\"canvas_saas\".\"generation_task\".\"text_quote_snapshot\" IS NULL OR (jsonb_typeof(\"canvas_saas\".\"generation_task\".\"text_quote_snapshot\") = 'object' AND \"canvas_saas\".\"generation_task\".\"price_version\" IS NOT NULL AND \"canvas_saas\".\"generation_task\".\"quoted_units\" IS NULL AND \"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" IS NULL AND \"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" IS NULL)"
+        },
+        "generation_task_video_quote": {
+          "name": "generation_task_video_quote",
+          "value": "\"canvas_saas\".\"generation_task\".\"video_quote_snapshot\" IS NULL OR (jsonb_typeof(\"canvas_saas\".\"generation_task\".\"video_quote_snapshot\") = 'object' AND \"canvas_saas\".\"generation_task\".\"text_quote_snapshot\" IS NULL AND \"canvas_saas\".\"generation_task\".\"price_version\" IS NOT NULL AND \"canvas_saas\".\"generation_task\".\"quoted_units\" IS NOT NULL AND \"canvas_saas\".\"generation_task\".\"billing_unit_snapshot\" = 'request' AND \"canvas_saas\".\"generation_task\".\"credits_per_unit_snapshot\" IS NOT NULL)"
+        },
+        "generation_task_execution_status": {
+          "name": "generation_task_execution_status",
+          "value": "\"canvas_saas\".\"generation_task\".\"execution_status\" IN ('pending', 'queued', 'running', 'succeeded', 'failed', 'unknown', 'cancelled', 'timeout')"
+        },
+        "generation_task_delivery_status": {
+          "name": "generation_task_delivery_status",
+          "value": "\"canvas_saas\".\"generation_task\".\"delivery_status\" IN ('pending', 'saved', 'visible', 'failed', 'unknown')"
+        },
+        "generation_task_billing_status": {
+          "name": "generation_task_billing_status",
+          "value": "\"canvas_saas\".\"generation_task\".\"billing_status\" IN ('unbilled', 'reserved', 'captured', 'released', 'pending_review')"
+        },
+        "generation_task_unknown_reason": {
+          "name": "generation_task_unknown_reason",
+          "value": "\"canvas_saas\".\"generation_task\".\"execution_status\" <> 'unknown' OR (\"canvas_saas\".\"generation_task\".\"unknown_reason\" IS NOT NULL AND length(trim(\"canvas_saas\".\"generation_task\".\"unknown_reason\")) > 0)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.generation_video_stage": {
+      "name": "generation_video_stage",
+      "schema": "canvas_saas",
+      "columns": {
+        "task_id": {
+          "name": "task_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "protocol": {
+          "name": "protocol",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endpoint": {
+          "name": "endpoint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model": {
+          "name": "provider_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_publication_id": {
+          "name": "price_publication_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parameters_snapshot": {
+          "name": "parameters_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "create_attempt_token": {
+          "name": "create_attempt_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "create_started_at": {
+          "name": "create_started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_task_id": {
+          "name": "provider_task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "claim_token": {
+          "name": "claim_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lease_until": {
+          "name": "lease_until",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "next_action_at": {
+          "name": "next_action_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inspect_attempts": {
+          "name": "inspect_attempts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "download_attempts": {
+          "name": "download_attempts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "observation_deadline_at": {
+          "name": "observation_deadline_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wake_revision": {
+          "name": "wake_revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wake_job_id": {
+          "name": "wake_job_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wake_deadline_at": {
+          "name": "wake_deadline_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_reason": {
+          "name": "last_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_http_status": {
+          "name": "last_http_status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration_evidence": {
+          "name": "duration_evidence",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "probe_snapshot": {
+          "name": "probe_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "generation_video_stage_next_action": {
+          "name": "generation_video_stage_next_action",
+          "columns": [
+            {
+              "expression": "next_action_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "task_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "generation_video_stage_lease": {
+          "name": "generation_video_stage_lease",
+          "columns": [
+            {
+              "expression": "lease_until",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "task_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "generation_video_stage_task_id_generation_task_id_fk": {
+          "name": "generation_video_stage_task_id_generation_task_id_fk",
+          "tableFrom": "generation_video_stage",
+          "tableTo": "generation_task",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "task_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "generation_video_stage_price_publication_id_model_price_publication_id_fk": {
+          "name": "generation_video_stage_price_publication_id_model_price_publication_id_fk",
+          "tableFrom": "generation_video_stage",
+          "tableTo": "model_price_publication",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "price_publication_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "generation_video_stage_protocol": {
+          "name": "generation_video_stage_protocol",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"protocol\" = 'yunfei-grok-video-v1'"
+        },
+        "generation_video_stage_phase": {
+          "name": "generation_video_stage_phase",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"phase\" IN ('ready', 'rejected', 'create_started', 'accepted', 'polling', 'completed', 'failed', 'unknown')"
+        },
+        "generation_video_stage_counters": {
+          "name": "generation_video_stage_counters",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"revision\" >= 0 AND \"canvas_saas\".\"generation_video_stage\".\"inspect_attempts\" >= 0 AND \"canvas_saas\".\"generation_video_stage\".\"download_attempts\" >= 0 AND (\"canvas_saas\".\"generation_video_stage\".\"wake_revision\" IS NULL OR \"canvas_saas\".\"generation_video_stage\".\"wake_revision\" >= 0)"
+        },
+        "generation_video_stage_http_status": {
+          "name": "generation_video_stage_http_status",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"last_http_status\" IS NULL OR \"canvas_saas\".\"generation_video_stage\".\"last_http_status\" BETWEEN 100 AND 599"
+        },
+        "generation_video_stage_claim_pair": {
+          "name": "generation_video_stage_claim_pair",
+          "value": "(\"canvas_saas\".\"generation_video_stage\".\"claim_token\" IS NULL) = (\"canvas_saas\".\"generation_video_stage\".\"lease_until\" IS NULL)"
+        },
+        "generation_video_stage_create_pair": {
+          "name": "generation_video_stage_create_pair",
+          "value": "(\"canvas_saas\".\"generation_video_stage\".\"create_attempt_token\" IS NULL) = (\"canvas_saas\".\"generation_video_stage\".\"create_started_at\" IS NULL)"
+        },
+        "generation_video_stage_id": {
+          "name": "generation_video_stage_id",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"provider_task_id\" IS NULL OR (length(\"canvas_saas\".\"generation_video_stage\".\"provider_task_id\") BETWEEN 1 AND 200 AND \"canvas_saas\".\"generation_video_stage\".\"provider_task_id\" NOT IN ('.', '..') AND \"canvas_saas\".\"generation_video_stage\".\"provider_task_id\" !~ '[[:cntrl:]]')"
+        },
+        "generation_video_stage_bound_phase": {
+          "name": "generation_video_stage_bound_phase",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"phase\" NOT IN ('accepted', 'polling', 'completed', 'failed') OR \"canvas_saas\".\"generation_video_stage\".\"provider_task_id\" IS NOT NULL"
+        },
+        "generation_video_stage_rejected": {
+          "name": "generation_video_stage_rejected",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"phase\" <> 'rejected' OR (\"canvas_saas\".\"generation_video_stage\".\"create_attempt_token\" IS NULL AND \"canvas_saas\".\"generation_video_stage\".\"create_started_at\" IS NULL AND \"canvas_saas\".\"generation_video_stage\".\"provider_task_id\" IS NULL)"
+        },
+        "generation_video_stage_parameters": {
+          "name": "generation_video_stage_parameters",
+          "value": "jsonb_typeof(\"canvas_saas\".\"generation_video_stage\".\"parameters_snapshot\") = 'object'"
+        },
+        "generation_video_stage_probe": {
+          "name": "generation_video_stage_probe",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"probe_snapshot\" IS NULL OR jsonb_typeof(\"canvas_saas\".\"generation_video_stage\".\"probe_snapshot\") = 'object'"
+        },
+        "generation_video_stage_duration": {
+          "name": "generation_video_stage_duration",
+          "value": "\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\" IS NULL OR COALESCE((jsonb_typeof(\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\") = 'object' AND ((\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\" = '{\"status\":\"missing\"}'::jsonb) OR (\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\" = '{\"status\":\"invalid\"}'::jsonb) OR (\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\" = jsonb_build_object('status', 'reported', 'rawSeconds', \"canvas_saas\".\"generation_video_stage\".\"duration_evidence\"->>'rawSeconds') AND \"canvas_saas\".\"generation_video_stage\".\"duration_evidence\"->>'rawSeconds' ~ '^(0|[1-9][0-9]*)([.][0-9]+)?$' AND (\"canvas_saas\".\"generation_video_stage\".\"duration_evidence\"->>'rawSeconds')::numeric > 0))), false)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.media_object": {
+      "name": "media_object",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "object_key": {
+          "name": "object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_type": {
+          "name": "content_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size_bytes": {
+          "name": "size_bytes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etag": {
+          "name": "etag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "media_object_owner_created": {
+          "name": "media_object_owner_created",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "media_object_owner_id_user_id_fk": {
+          "name": "media_object_owner_id_user_id_fk",
+          "tableFrom": "media_object",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "media_object_object_key_unique": {
+          "name": "media_object_object_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "object_key"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "media_object_size_positive": {
+          "name": "media_object_size_positive",
+          "value": "\"canvas_saas\".\"media_object\".\"size_bytes\" > 0"
+        },
+        "media_object_kind": {
+          "name": "media_object_kind",
+          "value": "\"canvas_saas\".\"media_object\".\"kind\" IN ('image', 'video', 'audio')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_catalog": {
+      "name": "model_catalog",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model": {
+          "name": "provider_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capability": {
+          "name": "capability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "model_catalog_public_id_unique": {
+          "name": "model_catalog_public_id_unique",
+          "columns": [
+            {
+              "expression": "public_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "model_catalog_provider_model_unique": {
+          "name": "model_catalog_provider_model_unique",
+          "columns": [
+            {
+              "expression": "provider_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "provider_model",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"canvas_saas\".\"model_catalog\".\"deleted_at\" IS NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "model_catalog_enabled_capability": {
+          "name": "model_catalog_enabled_capability",
+          "columns": [
+            {
+              "expression": "enabled",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "capability",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "model_catalog_provider_id_model_provider_id_fk": {
+          "name": "model_catalog_provider_id_model_provider_id_fk",
+          "tableFrom": "model_catalog",
+          "tableTo": "model_provider",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "provider_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_catalog_capability": {
+          "name": "model_catalog_capability",
+          "value": "\"canvas_saas\".\"model_catalog\".\"capability\" IN ('text', 'image', 'video', 'audio')"
+        },
+        "model_catalog_revision": {
+          "name": "model_catalog_revision",
+          "value": "\"canvas_saas\".\"model_catalog\".\"revision\" > 0"
+        },
+        "model_catalog_deleted_disabled": {
+          "name": "model_catalog_deleted_disabled",
+          "value": "\"canvas_saas\".\"model_catalog\".\"deleted_at\" IS NULL OR NOT \"canvas_saas\".\"model_catalog\".\"enabled\""
+        },
+        "model_catalog_public_id": {
+          "name": "model_catalog_public_id",
+          "value": "length(trim(\"canvas_saas\".\"model_catalog\".\"public_id\")) > 0"
+        },
+        "model_catalog_provider_model": {
+          "name": "model_catalog_provider_model",
+          "value": "length(trim(\"canvas_saas\".\"model_catalog\".\"provider_model\")) > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_mapping_draft": {
+      "name": "model_mapping_draft",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "document": {
+          "name": "document",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"models\":[],\"bindings\":[],\"preferred\":{},\"prices\":{},\"specificationOptions\":{\"image\":[\"1K\",\"2K\",\"4K\"],\"video\":[\"480P\",\"720P\"]},\"modelSpecifications\":{}}'::jsonb"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_mapping_draft_id": {
+          "name": "model_mapping_draft_id",
+          "value": "\"canvas_saas\".\"model_mapping_draft\".\"id\" = 'catalog'"
+        },
+        "model_mapping_draft_version": {
+          "name": "model_mapping_draft_version",
+          "value": "\"canvas_saas\".\"model_mapping_draft\".\"version\" >= 0"
+        },
+        "model_mapping_draft_object": {
+          "name": "model_mapping_draft_object",
+          "value": "jsonb_typeof(\"canvas_saas\".\"model_mapping_draft\".\"document\") = 'object'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_mapping_publication": {
+      "name": "model_mapping_publication",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "draft_version": {
+          "name": "draft_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fingerprint": {
+          "name": "fingerprint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "document": {
+          "name": "document",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "model_mapping_publication_version": {
+          "name": "model_mapping_publication_version",
+          "columns": [
+            {
+              "expression": "version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_mapping_publication_positive_version": {
+          "name": "model_mapping_publication_positive_version",
+          "value": "\"canvas_saas\".\"model_mapping_publication\".\"version\" > 0 AND \"canvas_saas\".\"model_mapping_publication\".\"draft_version\" >= 0"
+        },
+        "model_mapping_publication_fingerprint": {
+          "name": "model_mapping_publication_fingerprint",
+          "value": "\"canvas_saas\".\"model_mapping_publication\".\"fingerprint\" ~ '^[a-f0-9]{64}$'"
+        },
+        "model_mapping_publication_document": {
+          "name": "model_mapping_publication_document",
+          "value": "jsonb_typeof(\"canvas_saas\".\"model_mapping_publication\".\"document\") = 'object'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_node_groups": {
+      "name": "model_node_groups",
+      "schema": "canvas_saas",
+      "columns": {
+        "capability": {
+          "name": "capability",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "groups": {
+          "name": "groups",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_node_groups_capability": {
+          "name": "model_node_groups_capability",
+          "value": "\"canvas_saas\".\"model_node_groups\".\"capability\" IN ('text', 'image', 'video', 'audio')"
+        },
+        "model_node_groups_version": {
+          "name": "model_node_groups_version",
+          "value": "\"canvas_saas\".\"model_node_groups\".\"version\" >= 0"
+        },
+        "model_node_groups_array": {
+          "name": "model_node_groups_array",
+          "value": "jsonb_typeof(\"canvas_saas\".\"model_node_groups\".\"groups\") = 'array'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_price_draft": {
+      "name": "model_price_draft",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rules": {
+          "name": "rules",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_note": {
+          "name": "price_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id_snapshot": {
+          "name": "provider_id_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model_snapshot": {
+          "name": "provider_model_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adapter_snapshot": {
+          "name": "adapter_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endpoint_snapshot": {
+          "name": "endpoint_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capability_snapshot": {
+          "name": "capability_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "model_price_draft_model_version_unique": {
+          "name": "model_price_draft_model_version_unique",
+          "columns": [
+            {
+              "expression": "model_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "model_price_draft_model_id_model_catalog_id_fk": {
+          "name": "model_price_draft_model_id_model_catalog_id_fk",
+          "tableFrom": "model_price_draft",
+          "tableTo": "model_catalog",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "model_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_price_draft_version": {
+          "name": "model_price_draft_version",
+          "value": "\"canvas_saas\".\"model_price_draft\".\"version\" > 0"
+        },
+        "model_price_draft_rules": {
+          "name": "model_price_draft_rules",
+          "value": "jsonb_typeof(\"canvas_saas\".\"model_price_draft\".\"rules\") = 'object'"
+        },
+        "model_price_draft_adapter": {
+          "name": "model_price_draft_adapter",
+          "value": "\"canvas_saas\".\"model_price_draft\".\"adapter_snapshot\" IN ('openai-compatible', 'sub2api')"
+        },
+        "model_price_draft_capability": {
+          "name": "model_price_draft_capability",
+          "value": "\"canvas_saas\".\"model_price_draft\".\"capability_snapshot\" IN ('text', 'image', 'video', 'audio')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_price_publication": {
+      "name": "model_price_publication",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "pricing_id": {
+          "name": "pricing_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "draft_id": {
+          "name": "draft_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "public_price_note": {
+          "name": "public_price_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "model_price_publication_pricing_unique": {
+          "name": "model_price_publication_pricing_unique",
+          "columns": [
+            {
+              "expression": "pricing_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "model_price_publication_draft_unique": {
+          "name": "model_price_publication_draft_unique",
+          "columns": [
+            {
+              "expression": "draft_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "model_price_publication_pricing_id_model_pricing_id_fk": {
+          "name": "model_price_publication_pricing_id_model_pricing_id_fk",
+          "tableFrom": "model_price_publication",
+          "tableTo": "model_pricing",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "pricing_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "model_price_publication_draft_id_model_price_draft_id_fk": {
+          "name": "model_price_publication_draft_id_model_price_draft_id_fk",
+          "tableFrom": "model_price_publication",
+          "tableTo": "model_price_draft",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "draft_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_pricing": {
+      "name": "model_pricing",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "billing_unit": {
+          "name": "billing_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "credits_per_unit": {
+          "name": "credits_per_unit",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "effective_from": {
+          "name": "effective_from",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "effective_to": {
+          "name": "effective_to",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "model_pricing_model_version_unique": {
+          "name": "model_pricing_model_version_unique",
+          "columns": [
+            {
+              "expression": "model_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "model_pricing_active_lookup": {
+          "name": "model_pricing_active_lookup",
+          "columns": [
+            {
+              "expression": "model_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "enabled",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "effective_from",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "model_pricing_model_id_model_catalog_id_fk": {
+          "name": "model_pricing_model_id_model_catalog_id_fk",
+          "tableFrom": "model_pricing",
+          "tableTo": "model_catalog",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "model_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_pricing_version": {
+          "name": "model_pricing_version",
+          "value": "\"canvas_saas\".\"model_pricing\".\"version\" > 0"
+        },
+        "model_pricing_billing_unit": {
+          "name": "model_pricing_billing_unit",
+          "value": "\"canvas_saas\".\"model_pricing\".\"billing_unit\" IN ('request', 'input_token', 'output_token', 'second', 'megapixel', 'text_tokens', 'image_specs', 'video_specs')"
+        },
+        "model_pricing_credits_positive": {
+          "name": "model_pricing_credits_positive",
+          "value": "(\"canvas_saas\".\"model_pricing\".\"billing_unit\" IN ('text_tokens', 'image_specs', 'video_specs') AND \"canvas_saas\".\"model_pricing\".\"credits_per_unit\" IS NULL) OR (\"canvas_saas\".\"model_pricing\".\"billing_unit\" NOT IN ('text_tokens', 'image_specs', 'video_specs') AND \"canvas_saas\".\"model_pricing\".\"credits_per_unit\" IS NOT NULL AND \"canvas_saas\".\"model_pricing\".\"credits_per_unit\" > 0)"
+        },
+        "model_pricing_effective_range": {
+          "name": "model_pricing_effective_range",
+          "value": "\"canvas_saas\".\"model_pricing\".\"effective_to\" IS NULL OR \"canvas_saas\".\"model_pricing\".\"effective_to\" > \"canvas_saas\".\"model_pricing\".\"effective_from\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_provider": {
+      "name": "model_provider",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adapter": {
+          "name": "adapter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endpoint": {
+          "name": "endpoint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "secret_ref": {
+          "name": "secret_ref",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_provider_adapter": {
+          "name": "model_provider_adapter",
+          "value": "\"canvas_saas\".\"model_provider\".\"adapter\" IN ('openai-compatible', 'sub2api')"
+        },
+        "model_provider_secret_ref": {
+          "name": "model_provider_secret_ref",
+          "value": "length(trim(\"canvas_saas\".\"model_provider\".\"secret_ref\")) > 0"
+        },
+        "model_provider_revision": {
+          "name": "model_provider_revision",
+          "value": "\"canvas_saas\".\"model_provider\".\"revision\" > 0"
+        },
+        "model_provider_deleted_disabled": {
+          "name": "model_provider_deleted_disabled",
+          "value": "\"canvas_saas\".\"model_provider\".\"deleted_at\" IS NULL OR NOT \"canvas_saas\".\"model_provider\".\"enabled\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.model_provider_credential": {
+      "name": "model_provider_credential",
+      "schema": "canvas_saas",
+      "columns": {
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ciphertext": {
+          "name": "ciphertext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nonce": {
+          "name": "nonce",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auth_tag": {
+          "name": "auth_tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key_version": {
+          "name": "key_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "model_provider_credential_provider_id_model_provider_id_fk": {
+          "name": "model_provider_credential_provider_id_model_provider_id_fk",
+          "tableFrom": "model_provider_credential",
+          "tableTo": "model_provider",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "provider_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "model_provider_credential_ciphertext": {
+          "name": "model_provider_credential_ciphertext",
+          "value": "length(\"canvas_saas\".\"model_provider_credential\".\"ciphertext\") > 0"
+        },
+        "model_provider_credential_nonce": {
+          "name": "model_provider_credential_nonce",
+          "value": "length(\"canvas_saas\".\"model_provider_credential\".\"nonce\") = 24"
+        },
+        "model_provider_credential_auth_tag": {
+          "name": "model_provider_credential_auth_tag",
+          "value": "length(\"canvas_saas\".\"model_provider_credential\".\"auth_tag\") = 32"
+        },
+        "model_provider_credential_key_version": {
+          "name": "model_provider_credential_key_version",
+          "value": "\"canvas_saas\".\"model_provider_credential\".\"key_version\" = 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.official_price_mapping": {
+      "name": "official_price_mapping",
+      "schema": "canvas_saas",
+      "columns": {
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reference_id": {
+          "name": "reference_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id_snapshot": {
+          "name": "provider_id_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model_snapshot": {
+          "name": "provider_model_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adapter_snapshot": {
+          "name": "adapter_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endpoint_snapshot": {
+          "name": "endpoint_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capability_snapshot": {
+          "name": "capability_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "official_price_mapping_model_id_model_catalog_public_id_fk": {
+          "name": "official_price_mapping_model_id_model_catalog_public_id_fk",
+          "tableFrom": "official_price_mapping",
+          "tableTo": "model_catalog",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "model_id"
+          ],
+          "columnsTo": [
+            "public_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "official_price_mapping_version": {
+          "name": "official_price_mapping_version",
+          "value": "\"canvas_saas\".\"official_price_mapping\".\"version\" > 0"
+        },
+        "official_price_mapping_reference": {
+          "name": "official_price_mapping_reference",
+          "value": "\"canvas_saas\".\"official_price_mapping\".\"reference_id\" IS NULL OR \"canvas_saas\".\"official_price_mapping\".\"reference_id\" ~ '^(openai|anthropic):.+'"
+        },
+        "official_price_mapping_adapter": {
+          "name": "official_price_mapping_adapter",
+          "value": "\"canvas_saas\".\"official_price_mapping\".\"adapter_snapshot\" IN ('openai-compatible','sub2api')"
+        },
+        "official_price_mapping_capability": {
+          "name": "official_price_mapping_capability",
+          "value": "\"canvas_saas\".\"official_price_mapping\".\"capability_snapshot\" = 'text'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.official_price_source": {
+      "name": "official_price_source",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "entries": {
+          "name": "entries",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "digest": {
+          "name": "digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "previous_entries": {
+          "name": "previous_entries",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "previous_digest": {
+          "name": "previous_digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "checked_at": {
+          "name": "checked_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempted_at": {
+          "name": "attempted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "changed_at": {
+          "name": "changed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unavailable'"
+        },
+        "changed_entry_ids": {
+          "name": "changed_entry_ids",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "lease_token": {
+          "name": "lease_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lease_expires_at": {
+          "name": "lease_expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "official_price_source_id": {
+          "name": "official_price_source_id",
+          "value": "\"canvas_saas\".\"official_price_source\".\"id\" IN ('openai','anthropic')"
+        },
+        "official_price_source_version": {
+          "name": "official_price_source_version",
+          "value": "\"canvas_saas\".\"official_price_source\".\"version\" >= 0"
+        },
+        "official_price_source_status": {
+          "name": "official_price_source_status",
+          "value": "\"canvas_saas\".\"official_price_source\".\"status\" IN ('ready','stale','unavailable')"
+        },
+        "official_price_source_arrays": {
+          "name": "official_price_source_arrays",
+          "value": "jsonb_typeof(\"canvas_saas\".\"official_price_source\".\"entries\") = 'array' AND jsonb_typeof(\"canvas_saas\".\"official_price_source\".\"previous_entries\") = 'array' AND jsonb_typeof(\"canvas_saas\".\"official_price_source\".\"changed_entry_ids\") = 'array'"
+        },
+        "official_price_source_lease": {
+          "name": "official_price_source_lease",
+          "value": "(\"canvas_saas\".\"official_price_source\".\"lease_token\" IS NULL) = (\"canvas_saas\".\"official_price_source\".\"lease_expires_at\" IS NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.payment_event": {
+      "name": "payment_event",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_identity": {
+          "name": "event_identity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "outcome": {
+          "name": "outcome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "evidence": {
+          "name": "evidence",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ciphertext": {
+          "name": "ciphertext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nonce": {
+          "name": "nonce",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "auth_tag": {
+          "name": "auth_tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "key_version": {
+          "name": "key_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payment_event_identity": {
+          "name": "payment_event_identity",
+          "columns": [
+            {
+              "expression": "event_identity",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"canvas_saas\".\"payment_event\".\"kind\" = 'notification'",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payment_event_order_created": {
+          "name": "payment_event_order_created",
+          "columns": [
+            {
+              "expression": "order_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "payment_event_order_id_payment_order_id_fk": {
+          "name": "payment_event_order_id_payment_order_id_fk",
+          "tableFrom": "payment_event",
+          "tableTo": "payment_order",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "order_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "payment_event_kind": {
+          "name": "payment_event_kind",
+          "value": "\"canvas_saas\".\"payment_event\".\"kind\" IN ('notification', 'query', 'create', 'reconcile')"
+        },
+        "payment_event_evidence": {
+          "name": "payment_event_evidence",
+          "value": "jsonb_typeof(\"canvas_saas\".\"payment_event\".\"evidence\") = 'object'"
+        },
+        "payment_event_notice_cipher": {
+          "name": "payment_event_notice_cipher",
+          "value": "(\"canvas_saas\".\"payment_event\".\"kind\" = 'notification' AND \"canvas_saas\".\"payment_event\".\"event_identity\" IS NOT NULL AND \"canvas_saas\".\"payment_event\".\"ciphertext\" IS NOT NULL AND length(\"canvas_saas\".\"payment_event\".\"ciphertext\") > 0 AND \"canvas_saas\".\"payment_event\".\"nonce\" IS NOT NULL AND length(\"canvas_saas\".\"payment_event\".\"nonce\") = 24 AND \"canvas_saas\".\"payment_event\".\"auth_tag\" IS NOT NULL AND length(\"canvas_saas\".\"payment_event\".\"auth_tag\") = 32 AND \"canvas_saas\".\"payment_event\".\"key_version\" IS NOT NULL AND \"canvas_saas\".\"payment_event\".\"key_version\" = 1) OR (\"canvas_saas\".\"payment_event\".\"kind\" <> 'notification' AND \"canvas_saas\".\"payment_event\".\"ciphertext\" IS NULL AND \"canvas_saas\".\"payment_event\".\"nonce\" IS NULL AND \"canvas_saas\".\"payment_event\".\"auth_tag\" IS NULL AND \"canvas_saas\".\"payment_event\".\"key_version\" IS NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.payment_merchant_version": {
+      "name": "payment_merchant_version",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "merchant_id": {
+          "name": "merchant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "protocol": {
+          "name": "protocol",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_type": {
+          "name": "payment_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_id": {
+          "name": "channel_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "product_name": {
+          "name": "product_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notify_url": {
+          "name": "notify_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ciphertext": {
+          "name": "ciphertext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nonce": {
+          "name": "nonce",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auth_tag": {
+          "name": "auth_tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key_version": {
+          "name": "key_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "payment_merchant_version_actor_id_user_id_fk": {
+          "name": "payment_merchant_version_actor_id_user_id_fk",
+          "tableFrom": "payment_merchant_version",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "payment_merchant_identity": {
+          "name": "payment_merchant_identity",
+          "value": "\"canvas_saas\".\"payment_merchant_version\".\"merchant_id\" ~ '^[A-Za-z0-9_-]+$'"
+        },
+        "payment_merchant_protocol": {
+          "name": "payment_merchant_protocol",
+          "value": "\"canvas_saas\".\"payment_merchant_version\".\"protocol\" = 'zpay-epay-md5-doc-03b0f9fb1ff6' AND \"canvas_saas\".\"payment_merchant_version\".\"currency\" = 'CNY'"
+        },
+        "payment_merchant_type": {
+          "name": "payment_merchant_type",
+          "value": "\"canvas_saas\".\"payment_merchant_version\".\"payment_type\" IN ('alipay', 'wxpay')"
+        },
+        "payment_merchant_credential": {
+          "name": "payment_merchant_credential",
+          "value": "length(\"canvas_saas\".\"payment_merchant_version\".\"ciphertext\") > 0 AND length(\"canvas_saas\".\"payment_merchant_version\".\"nonce\") = 24 AND length(\"canvas_saas\".\"payment_merchant_version\".\"auth_tag\") = 32 AND \"canvas_saas\".\"payment_merchant_version\".\"key_version\" = 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.payment_offer_version": {
+      "name": "payment_offer_version",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "offer_id": {
+          "name": "offer_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount_minor": {
+          "name": "amount_minor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "credit_units": {
+          "name": "credit_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "policy_reference": {
+          "name": "policy_reference",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payment_offer_version_unique": {
+          "name": "payment_offer_version_unique",
+          "columns": [
+            {
+              "expression": "offer_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "revision",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "payment_offer_version_actor_id_user_id_fk": {
+          "name": "payment_offer_version_actor_id_user_id_fk",
+          "tableFrom": "payment_offer_version",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "payment_offer_revision": {
+          "name": "payment_offer_revision",
+          "value": "\"canvas_saas\".\"payment_offer_version\".\"revision\" > 0"
+        },
+        "payment_offer_amount": {
+          "name": "payment_offer_amount",
+          "value": "\"canvas_saas\".\"payment_offer_version\".\"amount_minor\" ~ '^[1-9][0-9]*$'"
+        },
+        "payment_offer_credits": {
+          "name": "payment_offer_credits",
+          "value": "\"canvas_saas\".\"payment_offer_version\".\"credit_units\" > 0 AND \"canvas_saas\".\"payment_offer_version\".\"credit_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.payment_order": {
+      "name": "payment_order",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "create_key": {
+          "name": "create_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "merchant_version_id": {
+          "name": "merchant_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "offer_version_id": {
+          "name": "offer_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "merchant_id": {
+          "name": "merchant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "merchant_order_id": {
+          "name": "merchant_order_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount_minor": {
+          "name": "amount_minor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "credit_units": {
+          "name": "credit_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_type": {
+          "name": "payment_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "product_name": {
+          "name": "product_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_id": {
+          "name": "channel_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "create_state": {
+          "name": "create_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "create_attempt_token": {
+          "name": "create_attempt_token",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "create_attempted_at": {
+          "name": "create_attempted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_trade_no": {
+          "name": "provider_trade_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_order_id": {
+          "name": "provider_order_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payment_links": {
+          "name": "payment_links",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payment_state": {
+          "name": "payment_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unknown'"
+        },
+        "credit_state": {
+          "name": "credit_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "refund_state": {
+          "name": "refund_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'none'"
+        },
+        "credited_ledger_id": {
+          "name": "credited_ledger_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credited_at": {
+          "name": "credited_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_reason": {
+          "name": "last_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payment_order_owner_key": {
+          "name": "payment_order_owner_key",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "create_key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payment_order_merchant_number": {
+          "name": "payment_order_merchant_number",
+          "columns": [
+            {
+              "expression": "provider",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "merchant_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "merchant_order_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payment_order_merchant_transaction": {
+          "name": "payment_order_merchant_transaction",
+          "columns": [
+            {
+              "expression": "provider",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "merchant_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "provider_trade_no",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payment_order_credited_ledger": {
+          "name": "payment_order_credited_ledger",
+          "columns": [
+            {
+              "expression": "credited_ledger_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payment_order_owner_created": {
+          "name": "payment_order_owner_created",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "payment_order_owner_id_user_id_fk": {
+          "name": "payment_order_owner_id_user_id_fk",
+          "tableFrom": "payment_order",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "owner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "payment_order_merchant_version_id_payment_merchant_version_id_fk": {
+          "name": "payment_order_merchant_version_id_payment_merchant_version_id_fk",
+          "tableFrom": "payment_order",
+          "tableTo": "payment_merchant_version",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "merchant_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "payment_order_offer_version_id_payment_offer_version_id_fk": {
+          "name": "payment_order_offer_version_id_payment_offer_version_id_fk",
+          "tableFrom": "payment_order",
+          "tableTo": "payment_offer_version",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "offer_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "payment_order_credited_ledger_id_wallet_ledger_id_fk": {
+          "name": "payment_order_credited_ledger_id_wallet_ledger_id_fk",
+          "tableFrom": "payment_order",
+          "tableTo": "wallet_ledger",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "credited_ledger_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "payment_order_identity": {
+          "name": "payment_order_identity",
+          "value": "\"canvas_saas\".\"payment_order\".\"provider\" = 'zpay' AND \"canvas_saas\".\"payment_order\".\"currency\" = 'CNY' AND \"canvas_saas\".\"payment_order\".\"merchant_id\" ~ '^[A-Za-z0-9_-]+$' AND \"canvas_saas\".\"payment_order\".\"merchant_order_id\" ~ '^[A-Za-z0-9_-]{1,32}$' AND (\"canvas_saas\".\"payment_order\".\"provider_trade_no\" IS NULL OR \"canvas_saas\".\"payment_order\".\"provider_trade_no\" ~ '^[A-Za-z0-9_-]+$')"
+        },
+        "payment_order_amount": {
+          "name": "payment_order_amount",
+          "value": "\"canvas_saas\".\"payment_order\".\"amount_minor\" ~ '^[1-9][0-9]*$' AND \"canvas_saas\".\"payment_order\".\"credit_units\" > 0 AND \"canvas_saas\".\"payment_order\".\"credit_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)"
+        },
+        "payment_order_type": {
+          "name": "payment_order_type",
+          "value": "\"canvas_saas\".\"payment_order\".\"payment_type\" IN ('alipay', 'wxpay')"
+        },
+        "payment_order_create_state": {
+          "name": "payment_order_create_state",
+          "value": "\"canvas_saas\".\"payment_order\".\"create_state\" IN ('pending', 'attempting', 'accepted', 'rejected', 'unknown')"
+        },
+        "payment_order_attempt_pair": {
+          "name": "payment_order_attempt_pair",
+          "value": "(\"canvas_saas\".\"payment_order\".\"create_attempt_token\" IS NULL) = (\"canvas_saas\".\"payment_order\".\"create_attempted_at\" IS NULL)"
+        },
+        "payment_order_payment_state": {
+          "name": "payment_order_payment_state",
+          "value": "\"canvas_saas\".\"payment_order\".\"payment_state\" IN ('unknown', 'unpaid', 'paid')"
+        },
+        "payment_order_refund_state": {
+          "name": "payment_order_refund_state",
+          "value": "\"canvas_saas\".\"payment_order\".\"refund_state\" IN ('none', 'pending_review', 'refunded')"
+        },
+        "payment_order_credit_state": {
+          "name": "payment_order_credit_state",
+          "value": "(\"canvas_saas\".\"payment_order\".\"credit_state\" = 'pending' AND \"canvas_saas\".\"payment_order\".\"credited_ledger_id\" IS NULL AND \"canvas_saas\".\"payment_order\".\"credited_at\" IS NULL) OR (\"canvas_saas\".\"payment_order\".\"credit_state\" = 'credited' AND \"canvas_saas\".\"payment_order\".\"credited_ledger_id\" IS NOT NULL AND \"canvas_saas\".\"payment_order\".\"credited_at\" IS NOT NULL AND \"canvas_saas\".\"payment_order\".\"provider_trade_no\" IS NOT NULL AND \"canvas_saas\".\"payment_order\".\"payment_state\" = 'paid')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.payment_settings": {
+      "name": "payment_settings",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "new_orders_enabled": {
+          "name": "new_orders_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "merchant_version_id": {
+          "name": "merchant_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offer_version_ids": {
+          "name": "offer_version_ids",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "payment_settings_merchant_version_id_payment_merchant_version_id_fk": {
+          "name": "payment_settings_merchant_version_id_payment_merchant_version_id_fk",
+          "tableFrom": "payment_settings",
+          "tableTo": "payment_merchant_version",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "merchant_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "payment_settings_id": {
+          "name": "payment_settings_id",
+          "value": "\"canvas_saas\".\"payment_settings\".\"id\" = 'zpay'"
+        },
+        "payment_settings_revision": {
+          "name": "payment_settings_revision",
+          "value": "\"canvas_saas\".\"payment_settings\".\"revision\" >= 0"
+        },
+        "payment_settings_offers": {
+          "name": "payment_settings_offers",
+          "value": "jsonb_typeof(\"canvas_saas\".\"payment_settings\".\"offer_version_ids\") = 'array'"
+        },
+        "payment_settings_enablement": {
+          "name": "payment_settings_enablement",
+          "value": "NOT \"canvas_saas\".\"payment_settings\".\"new_orders_enabled\" OR (\"canvas_saas\".\"payment_settings\".\"merchant_version_id\" IS NOT NULL AND jsonb_array_length(\"canvas_saas\".\"payment_settings\".\"offer_version_ids\") > 0)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.provider_discovered_model": {
+      "name": "provider_discovered_model",
+      "schema": "canvas_saas",
+      "columns": {
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_model": {
+          "name": "provider_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "available": {
+          "name": "available",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "first_seen_at": {
+          "name": "first_seen_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "last_seen_at": {
+          "name": "last_seen_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "provider_discovered_model_unique": {
+          "name": "provider_discovered_model_unique",
+          "columns": [
+            {
+              "expression": "provider_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "provider_model",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "provider_discovered_model_provider_id_model_provider_id_fk": {
+          "name": "provider_discovered_model_provider_id_model_provider_id_fk",
+          "tableFrom": "provider_discovered_model",
+          "tableTo": "model_provider",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "provider_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "provider_discovered_model_id": {
+          "name": "provider_discovered_model_id",
+          "value": "length(btrim(\"canvas_saas\".\"provider_discovered_model\".\"provider_model\")) BETWEEN 1 AND 200"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.provider_discovery_receipt": {
+      "name": "provider_discovery_receipt",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "target_fingerprint": {
+          "name": "target_fingerprint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "models": {
+          "name": "models",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "provider_discovery_receipt_session": {
+          "name": "provider_discovery_receipt_session",
+          "columns": [
+            {
+              "expression": "session_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "provider_discovery_receipt_actor_id_user_id_fk": {
+          "name": "provider_discovery_receipt_actor_id_user_id_fk",
+          "tableFrom": "provider_discovery_receipt",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "provider_discovery_receipt_session_id_session_id_fk": {
+          "name": "provider_discovery_receipt_session_id_session_id_fk",
+          "tableFrom": "provider_discovery_receipt",
+          "tableTo": "session",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "session_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "provider_discovery_receipt_revision": {
+          "name": "provider_discovery_receipt_revision",
+          "value": "\"canvas_saas\".\"provider_discovery_receipt\".\"revision\" >= 0"
+        },
+        "provider_discovery_receipt_models": {
+          "name": "provider_discovery_receipt_models",
+          "value": "jsonb_typeof(\"canvas_saas\".\"provider_discovery_receipt\".\"models\") = 'array'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.rate_limit": {
+      "name": "rate_limit",
+      "schema": "canvas_saas",
+      "columns": {
+        "key": {
+          "name": "key",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "expire": {
+          "name": "expire",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "rate_limit_expire": {
+          "name": "rate_limit_expire",
+          "columns": [
+            {
+              "expression": "expire",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "canvas_saas.session": {
+      "name": "session",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip_address": {
+          "name": "ip_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_agent": {
+          "name": "user_agent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "moderation_version": {
+          "name": "moderation_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "session_user": {
+          "name": "session_user",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "session_token_unique": {
+          "name": "session_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "token"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "session_moderation_version": {
+          "name": "session_moderation_version",
+          "value": "\"canvas_saas\".\"session\".\"moderation_version\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.storage_quota": {
+      "name": "storage_quota",
+      "schema": "canvas_saas",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "quota_bytes": {
+          "name": "quota_bytes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "used_bytes": {
+          "name": "used_bytes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "storage_quota_user_id_user_id_fk": {
+          "name": "storage_quota_user_id_user_id_fk",
+          "tableFrom": "storage_quota",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "storage_quota_nonnegative": {
+          "name": "storage_quota_nonnegative",
+          "value": "\"canvas_saas\".\"storage_quota\".\"quota_bytes\" >= 0 AND \"canvas_saas\".\"storage_quota\".\"used_bytes\" >= 0"
+        },
+        "storage_quota_used_within_quota": {
+          "name": "storage_quota_used_within_quota",
+          "value": "\"canvas_saas\".\"storage_quota\".\"used_bytes\" <= \"canvas_saas\".\"storage_quota\".\"quota_bytes\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.user": {
+      "name": "user",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
+        },
+        "disabled": {
+          "name": "disabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "moderation_version": {
+          "name": "moderation_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "user_email_lower_unique": {
+          "name": "user_email_lower_unique",
+          "columns": [
+            {
+              "expression": "lower(btrim(\"email\"))",
+              "asc": true,
+              "isExpression": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "user_role": {
+          "name": "user_role",
+          "value": "\"canvas_saas\".\"user\".\"role\" IN ('user', 'admin')"
+        },
+        "user_moderation_version": {
+          "name": "user_moderation_version",
+          "value": "\"canvas_saas\".\"user\".\"moderation_version\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.verification": {
+      "name": "verification",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "verification_identifier": {
+          "name": "verification_identifier",
+          "columns": [
+            {
+              "expression": "identifier",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "canvas_saas.wallet": {
+      "name": "wallet",
+      "schema": "canvas_saas",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "unit": {
+          "name": "unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'credit'"
+        },
+        "available_units": {
+          "name": "available_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "reserved_units": {
+          "name": "reserved_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "wallet_user_id_user_id_fk": {
+          "name": "wallet_user_id_user_id_fk",
+          "tableFrom": "wallet",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "wallet_unit": {
+          "name": "wallet_unit",
+          "value": "\"canvas_saas\".\"wallet\".\"unit\" = 'credit'"
+        },
+        "wallet_nonnegative": {
+          "name": "wallet_nonnegative",
+          "value": "\"canvas_saas\".\"wallet\".\"available_units\" >= 0 AND \"canvas_saas\".\"wallet\".\"reserved_units\" >= 0"
+        },
+        "wallet_amounts_finite": {
+          "name": "wallet_amounts_finite",
+          "value": "\"canvas_saas\".\"wallet\".\"available_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet\".\"reserved_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)"
+        },
+        "wallet_version": {
+          "name": "wallet_version",
+          "value": "\"canvas_saas\".\"wallet\".\"version\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.wallet_ledger": {
+      "name": "wallet_ledger",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delta_available_units": {
+          "name": "delta_available_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delta_reserved_units": {
+          "name": "delta_reserved_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "available_units_after": {
+          "name": "available_units_after",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reserved_units_after": {
+          "name": "reserved_units_after",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idempotency_key": {
+          "name": "idempotency_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference_type": {
+          "name": "reference_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference_id": {
+          "name": "reference_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "wallet_ledger_user_idempotency": {
+          "name": "wallet_ledger_user_idempotency",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "idempotency_key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "wallet_ledger_payment_order_unique": {
+          "name": "wallet_ledger_payment_order_unique",
+          "columns": [
+            {
+              "expression": "reference_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"canvas_saas\".\"wallet_ledger\".\"kind\" = 'recharge' AND \"canvas_saas\".\"wallet_ledger\".\"reference_type\" = 'payment_order'",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "wallet_ledger_user_created": {
+          "name": "wallet_ledger_user_created",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "wallet_ledger_user_id_user_id_fk": {
+          "name": "wallet_ledger_user_id_user_id_fk",
+          "tableFrom": "wallet_ledger",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "wallet_ledger_actor_id_user_id_fk": {
+          "name": "wallet_ledger_actor_id_user_id_fk",
+          "tableFrom": "wallet_ledger",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "wallet_ledger_kind": {
+          "name": "wallet_ledger_kind",
+          "value": "\"canvas_saas\".\"wallet_ledger\".\"kind\" IN ('grant', 'recharge', 'adjustment', 'reserve', 'capture', 'release', 'refund', 'consume')"
+        },
+        "wallet_ledger_balance_after_nonnegative": {
+          "name": "wallet_ledger_balance_after_nonnegative",
+          "value": "\"canvas_saas\".\"wallet_ledger\".\"available_units_after\" >= 0 AND \"canvas_saas\".\"wallet_ledger\".\"reserved_units_after\" >= 0"
+        },
+        "wallet_ledger_amounts_finite": {
+          "name": "wallet_ledger_amounts_finite",
+          "value": "\"canvas_saas\".\"wallet_ledger\".\"delta_available_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet_ledger\".\"delta_reserved_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet_ledger\".\"available_units_after\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet_ledger\".\"reserved_units_after\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "canvas_saas.wallet_reservation": {
+      "name": "wallet_reservation",
+      "schema": "canvas_saas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requested_units": {
+          "name": "requested_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "captured_units": {
+          "name": "captured_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "released_units": {
+          "name": "released_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "idempotency_key": {
+          "name": "idempotency_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_request_id": {
+          "name": "provider_request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "task_id": {
+          "name": "task_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "wallet_reservation_user_idempotency": {
+          "name": "wallet_reservation_user_idempotency",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "idempotency_key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "wallet_reservation_user_status": {
+          "name": "wallet_reservation_user_status",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "wallet_reservation_user_id_user_id_fk": {
+          "name": "wallet_reservation_user_id_user_id_fk",
+          "tableFrom": "wallet_reservation",
+          "tableTo": "user",
+          "schemaTo": "canvas_saas",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "wallet_reservation_status": {
+          "name": "wallet_reservation_status",
+          "value": "\"canvas_saas\".\"wallet_reservation\".\"status\" IN ('pending', 'captured', 'released', 'expired')"
+        },
+        "wallet_reservation_requested_positive": {
+          "name": "wallet_reservation_requested_positive",
+          "value": "\"canvas_saas\".\"wallet_reservation\".\"requested_units\" > 0"
+        },
+        "wallet_reservation_parts_nonnegative": {
+          "name": "wallet_reservation_parts_nonnegative",
+          "value": "\"canvas_saas\".\"wallet_reservation\".\"captured_units\" >= 0 AND \"canvas_saas\".\"wallet_reservation\".\"released_units\" >= 0"
+        },
+        "wallet_reservation_parts_within_request": {
+          "name": "wallet_reservation_parts_within_request",
+          "value": "\"canvas_saas\".\"wallet_reservation\".\"captured_units\" + \"canvas_saas\".\"wallet_reservation\".\"released_units\" <= \"canvas_saas\".\"wallet_reservation\".\"requested_units\""
+        },
+        "wallet_reservation_amounts_finite": {
+          "name": "wallet_reservation_amounts_finite",
+          "value": "\"canvas_saas\".\"wallet_reservation\".\"requested_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet_reservation\".\"captured_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric) AND \"canvas_saas\".\"wallet_reservation\".\"released_units\" NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "canvas_saas": "canvas_saas"
+  },
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "id": "1504d56e-8202-4846-96e3-0848d07f12b2",
+  "prevId": "12ce9fa2-b5f1-4218-a00c-2ee13e3f4af6"
+}

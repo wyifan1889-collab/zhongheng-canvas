@@ -1,0 +1,16 @@
+{
+  "name": "@infinite-canvas/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts", "./mail": "./src/mail.ts", "./captcha": "./src/captcha.ts" },
+  "dependencies": {
+    "@infinite-canvas/database": "workspace:*",
+    "@better-auth/drizzle-adapter": "1.7.6",
+    "better-auth": "1.7.6",
+    "drizzle-orm": "0.45.3",
+    "nodemailer": "10.0.11",
+    "zod": "4.6.5"
+  },
+  "devDependencies": { "@types/nodemailer": "7.0.11" }
+}

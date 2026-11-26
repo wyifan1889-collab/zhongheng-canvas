@@ -1,0 +1,168 @@
+src/components/layout/model-script-editor.tsx(60,17): error TS2353: Object literal may only specify known properties, and 'content' does not exist in type '((info: { props: ModalProps; }) => DeepStylesType<{ root?: CSSProperties | undefined; header?: CSSProperties | undefined; body?: CSSProperties | undefined; ... 5 more ...; close?: CSSProperties | undefined; } | undefined>) | DeepStylesType<...>'.
+src/services/saas/account-draft-store.test.ts(57,12): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/account-draft-store.test.ts(58,12): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/account-draft-workspace.test.ts(29,61): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: "unavailable" | "conflict" | "not_found" | "account_changed" | "cloud_unavailable" | "closed" | "busy" | "context_changed" | "invalid_data" | "unsaved_changes" | "no_draft" | "media_unavailable"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "conflict" | "not_found" | "account_changed" | "cloud_unavailable" | "closed" | "busy" | "context_changed" | "invalid_data" | "unsaved_changes" | "no_draft" | "media_unavailable"'.
+  Overload 2 of 2, '(expected: "unavailable" | "conflict" | "not_found" | "account_changed" | "cloud_unavailable" | "closed" | "busy" | "context_changed" | "invalid_data" | "unsaved_changes" | "no_draft" | "media_unavailable"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "conflict" | "not_found" | "account_changed" | "cloud_unavailable" | "closed" | "busy" | "context_changed" | "invalid_data" | "unsaved_changes" | "no_draft" | "media_unavailable"'.
+src/services/saas/account.test.ts(74,44): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(80,44): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(91,44): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(105,44): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(125,48): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(132,48): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(141,54): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(145,61): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(149,42): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(151,45): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(153,50): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(615,71): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(621,73): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/account.test.ts(635,78): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/canvas-cloud-library.test.ts(19,31): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: "unavailable" | "rate_limited" | "account_changed" | "cloud_unavailable" | "busy" | "context_changed" | "superseded" | "no_next_page"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "rate_limited" | "account_changed" | "cloud_unavailable" | "busy" | "context_changed" | "superseded" | "no_next_page"'.
+  Overload 2 of 2, '(expected: "unavailable" | "rate_limited" | "account_changed" | "cloud_unavailable" | "busy" | "context_changed" | "superseded" | "no_next_page"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "rate_limited" | "account_changed" | "cloud_unavailable" | "busy" | "context_changed" | "superseded" | "no_next_page"'.
+src/services/saas/canvas-cloud-library.test.ts(78,34): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(92,29): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(107,30): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(115,86): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(124,30): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(144,36): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(168,36): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-cloud-library.test.ts(181,32): error TS2339: Property 'error' does not exist on type '{ result: DraftPage; } | { error: any; }'.
+  Property 'error' does not exist on type '{ result: DraftPage; }'.
+src/services/saas/canvas-document-mount-controller.test.ts(16,69): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: MountErrorCode): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'MountErrorCode'.
+  Overload 2 of 2, '(expected: MountErrorCode): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'MountErrorCode'.
+src/services/saas/canvas-document-mount.test.ts(23,63): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: MountErrorCode): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'MountErrorCode'.
+  Overload 2 of 2, '(expected: MountErrorCode): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'MountErrorCode'.
+src/services/saas/canvas-document-mount.test.ts(63,5): error TS2322: Type '{ content: string; status: string; errorDetails: undefined; }' is not assignable to type 'JsonValue'.
+  Type '{ content: string; status: string; errorDetails: undefined; }' is not assignable to type 'null'.
+src/services/saas/canvas-document.test.ts(93,89): error TS2740: Type '{ content: string; }' is missing the following properties from type 'CanvasNodeImage': id, status, naturalWidth, naturalHeight, and 2 more.
+src/services/saas/canvas-document.test.ts(94,38): error TS2353: Object literal may only specify known properties, and 'url' does not exist in type 'CanvasNodeMetadata'.
+src/services/saas/canvas-document.test.ts(123,67): error TS2737: BigInt literals are not available when targeting lower than ES2020.
+src/services/saas/canvas-document.test.ts(123,210): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/services/saas/canvas-first-save.test.ts(26,12): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/canvas-first-save.test.ts(27,33): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/canvas-first-save.test.ts(133,50): error TS2353: Object literal may only specify known properties, and 'videoTaskId' does not exist in type '{ content: string; errorDetails: undefined; }'.
+src/services/saas/canvas-receipt-review.test.ts(22,12): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/canvas-receipt-review.test.ts(72,100): error TS2345: Argument of type '() => Promise<{ status: "found-current"; draft: { id: string; revision: number; updatedAt: string; documentVersion: 1; createdAt: string; readonly title: void; document: { id: string; readonly media: void; }; }; }>' is not assignable to parameter of type '() => Promise<DraftCreationCheck>'.
+  Type 'Promise<{ status: "found-current"; draft: { id: string; revision: number; updatedAt: string; documentVersion: 1; createdAt: string; readonly title: void; document: { id: string; readonly media: void; }; }; }>' is not assignable to type 'Promise<DraftCreationCheck>'.
+    Type '{ status: "found-current"; draft: { id: string; revision: number; updatedAt: string; documentVersion: 1; createdAt: string; readonly title: void; document: { id: string; readonly media: void; }; }; }' is not assignable to type 'DraftCreationCheck'.
+      Type '{ status: "found-current"; draft: { id: string; revision: number; updatedAt: string; documentVersion: 1; createdAt: string; readonly title: void; document: { id: string; readonly media: void; }; }; }' is not assignable to type '{ status: "found-current"; draft: CanvasDraft; }'.
+        The types of 'draft.title' are incompatible between these types.
+          Type 'void' is not assignable to type 'string'.
+src/services/saas/canvas-receipt-review.test.ts(193,33): error TS2345: Argument of type 'Promise<CanvasReceiptReviewRow[]> | Promise<CanvasReceiptReviewRow>' is not assignable to parameter of type 'Promise<CanvasReceiptReviewRow[]>'.
+  Type 'Promise<CanvasReceiptReviewRow>' is not assignable to type 'Promise<CanvasReceiptReviewRow[]>'.
+    Type 'CanvasReceiptReviewRow' is not assignable to type 'CanvasReceiptReviewRow[]'.
+      Type '{ readonly id: string; readonly status: "not-found-yet" | "unchecked"; }' is missing the following properties from type 'CanvasReceiptReviewRow[]': length, pop, push, concat, and 35 more.
+src/services/saas/canvas-receipt-review.test.ts(214,33): error TS2345: Argument of type 'Promise<CanvasReceiptReviewRow[]> | Promise<CanvasReceiptReviewRow>' is not assignable to parameter of type 'Promise<CanvasReceiptReviewRow[]>'.
+  Type 'Promise<CanvasReceiptReviewRow>' is not assignable to type 'Promise<CanvasReceiptReviewRow[]>'.
+    Type 'CanvasReceiptReviewRow' is not assignable to type 'CanvasReceiptReviewRow[]'.
+      Type '{ readonly id: string; readonly status: "not-found-yet" | "unchecked"; }' is missing the following properties from type 'CanvasReceiptReviewRow[]': length, pop, push, concat, and 35 more.
+src/services/saas/canvas-receipt-review.test.ts(278,16): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/canvas-version-save.test.ts(30,31): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: "unavailable" | "rate_limited" | "invalid_origin" | "account_changed" | "revision_conflict" | "payload_too_large" | "cloud_unavailable" | "busy" | "readonly" | "context_changed" | ... 10 more ... | "stale_baseline"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "rate_limited" | "invalid_origin" | "account_changed" | "revision_conflict" | "payload_too_large" | "cloud_unavailable" | "busy" | "readonly" | "context_changed" | ... 10 more ... | "stale_baseline"'.
+  Overload 2 of 2, '(expected: "unavailable" | "rate_limited" | "invalid_origin" | "account_changed" | "revision_conflict" | "payload_too_large" | "cloud_unavailable" | "busy" | "readonly" | "context_changed" | ... 10 more ... | "stale_baseline"): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type '"unavailable" | "rate_limited" | "invalid_origin" | "account_changed" | "revision_conflict" | "payload_too_large" | "cloud_unavailable" | "busy" | "readonly" | "context_changed" | ... 10 more ... | "stale_baseline"'.
+src/services/saas/canvas-version-save.test.ts(31,55): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: Outcome): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'Outcome'.
+  Overload 2 of 2, '(expected: Outcome): void', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'Outcome'.
+src/services/saas/canvas-version-save.test.ts(219,50): error TS2353: Object literal may only specify known properties, and 'videoTaskId' does not exist in type '{ content: string; errorDetails: undefined; }'.
+src/services/saas/canvas-version-save.test.ts(271,42): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>): void', gave the following error.
+    Argument of type '{ status: string; id: string; revision: number; observedRevision: number; }' is not assignable to parameter of type 'Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>'.
+      Types of property 'status' are incompatible.
+        Type 'string' is not assignable to type '"unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"'.
+  Overload 2 of 2, '(expected: NoInfer<Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>>): void', gave the following error.
+    Argument of type '{ status: string; id: string; revision: number; observedRevision: number; }' is not assignable to parameter of type 'Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>'.
+      Types of property 'status' are incompatible.
+        Type 'string' is not assignable to type '"unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"'.
+src/services/saas/canvas-version-save.test.ts(273,42): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>): void', gave the following error.
+    Argument of type '{ status: string; id: string; revision: number; observedRevision: number; }' is not assignable to parameter of type 'Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>'.
+      Types of property 'status' are incompatible.
+        Type 'string' is not assignable to type '"unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"'.
+  Overload 2 of 2, '(expected: NoInfer<Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>>): void', gave the following error.
+    Argument of type '{ status: string; id: string; revision: number; observedRevision: number; }' is not assignable to parameter of type 'Readonly<{ status: "unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"; id?: string | undefined; revision?: number | undefined; observedRevision?: number | undefined; }>'.
+      Types of property 'status' are incompatible.
+        Type 'string' is not assignable to type '"unknown" | "ready" | "blocked" | "saving" | "conflict" | "empty"'.
+src/services/saas/creation-receipt-store.test.ts(39,12): error TS18046: 'error' is of type 'unknown'.
+src/services/saas/creation-receipt-store.test.ts(198,101): error TS2352: Conversion of type 'string | number[] | null' to type 'string[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'number[]' is not comparable to type 'string[]'.
+    Type 'number' is not comparable to type 'string'.
+src/services/saas/creation-receipts.browser-check.ts(65,152): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/creation-receipts.test.ts(63,68): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/creation-receipts.test.ts(92,75): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/creation-receipts.test.ts(183,89): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/creation-receipts.test.ts(205,21): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/creation-receipts.test.ts(220,64): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/draft-creation.test.ts(97,49): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/draft-creation.test.ts(106,57): error TS2352: Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-creation.test.ts(120,53): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/draft-creation.test.ts(130,45): error TS2352: Conversion of type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-creation.test.ts(142,45): error TS2352: Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(17,52): error TS2352: Conversion of type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '(_path: URL | RequestInfo, options: RequestInit | BunFetchRequestInit | undefined) => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(60,21): error TS2352: Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(72,56): error TS2352: Conversion of type '() => Promise<never>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<never>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(89,49): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(101,56): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/draft-recovery.test.ts(126,52): error TS2352: Conversion of type '() => Promise<Response>' to type 'typeof fetch' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'preconnect' is missing in type '() => Promise<Response>' but required in type 'typeof fetch'.
+src/services/saas/drafts.test.ts(86,56): error TS2737: BigInt literals are not available when targeting lower than ES2020.
+src/services/saas/drafts.test.ts(86,234): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/stores/canvas/use-canvas-store.ts(137,22): error TS2352: Conversion of type '{ getItem(): Promise<{ state: CanvasSnapshot; version: number; }>; setItem(_name: string, value: { state: CanvasSnapshot; }): void; removeItem(): void; }' to type 'PersistStorage<CanvasStore, unknown>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  The types returned by 'getItem(...)' are incompatible between these types.
+    Type 'Promise<{ state: CanvasSnapshot; version: number; }>' is not comparable to type 'StorageValue<CanvasStore> | Promise<StorageValue<CanvasStore> | null> | null'.
+      Type 'Promise<{ state: CanvasSnapshot; version: number; }>' is not comparable to type 'Promise<StorageValue<CanvasStore> | null>'.
+        Type '{ state: CanvasSnapshot; version: number; }' is not comparable to type 'StorageValue<CanvasStore>'.
+          Types of property 'state' are incompatible.
+            Type 'CanvasSnapshot' is missing the following properties from type 'CanvasStore': hydrated, createProject, importProject, openProject, and 4 more.

@@ -1,0 +1,13 @@
+{
+  "name": "@infinite-canvas/test-postgres",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "pg": "8.23.0",
+    "@types/pg": "8.23.1",
+    "@infinite-canvas/database": "workspace:*",
+    "@infinite-canvas/jobs": "workspace:*"
+  },
+  "optionalDependencies": { "@embedded-postgres/windows-x64": "18.4.0-beta.17" }
+}

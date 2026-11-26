@@ -1,0 +1,20 @@
+---
+title: 官方源码同步
+description: SaaS 分包开发与官方画布持续升级
+---
+
+# 官方源码同步
+
+本产品保留官方 `basketikun/infinite-canvas` 的完整 Git 历史。`upstream/main` 跟踪官方，`saas/main` 保存产品功能，官方升级在独立 `upgrade/*` 分支和工作目录检查。
+
+在源码仓库根目录检查更新：
+
+```powershell
+pwsh -NoProfile -File scripts/saas/check-upstream.ps1 -Fetch
+```
+
+脚本只获取和比较更新，不自动合并、提交或发布。完整操作步骤、接入点清单和回退说明见源码仓库根目录的 `UPSTREAM_SYNC.md`；产品方案见 `SAAS_DEVELOPMENT_PLAN.md`，实际开发记录见 `DEVELOPMENT_LOG.md`。这些文件是仓库内部文档，不是网站公开路由。
+
+保留官方 `web/` 等目录的位置。认证、账务、渠道、支付、任务、风控和审计在独立模块实现，画布只增加必要接入点。分包可以缩小升级冲突范围，但请求协议、路由、节点格式和依赖变化仍需人工适配和验证。
+
+目前 SaaS 仍处于 API 探针阶段，账户、充值扣费和云端画布未实现；本页说明的是开发和升级流程。
